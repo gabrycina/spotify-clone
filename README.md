@@ -22,7 +22,7 @@ Revenue [how much each play is payed]
 
 ### Relazioni
 
-Making (n-n Artist,Track)
+Making (n-n Artist,Album)
 
 ArtistBelongsTo (n-n Soloist,Band)
 
@@ -49,6 +49,8 @@ FollowsArtist (n-n User,Artist)
 SuggestedPlaylist (1-n User,Playlist)
 
 Similarity (n-n Track,Track)
+
+Features (n-n Track, Artist)
 
 ### Views
 
