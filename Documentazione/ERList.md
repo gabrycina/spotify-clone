@@ -12,7 +12,7 @@ Album (generalizzazione Single o non-Single)
 
 Category
 
-Playlist
+Playlist (generalizzazione DailySuggestions)
 
 User
 
