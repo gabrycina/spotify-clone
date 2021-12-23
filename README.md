@@ -44,7 +44,7 @@ NowListeningTo (1-n Track,User)
 
 FollowsUser (n-n User,User)
 
-FollowsArtist (n-n UserArtist)
+FollowsArtist (n-n User,Artist)
 
 SuggestedPlaylist (1-n User,Playlist)
 
