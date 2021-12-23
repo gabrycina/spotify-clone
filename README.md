@@ -18,6 +18,8 @@ User
 
 Revenue [how much each play is payed]
 
+-----------------------------
+
 ### Relazioni
 
 Making (n-n Artist,Track)
@@ -45,6 +47,8 @@ FollowsUser (n-n User,User)
 FollowsArtist (n-n UserArtist)
 
 SuggestedPlaylist (1-n User,Playlist)
+
+Similarity (n-n Track,Track)
 
 ### Views
 
