@@ -2,7 +2,7 @@ import requests
 
 URL_GET_ARTIST_ALBUM = 'https://api.spotify.com/v1/artists/{}/albums?limit=5' # GET
 
-TOKEN = 'BQCj8Xxxri4dBFITxEZ5CkJzgFAOstnGpAhE6N-JuPK6mpFsuXjLbiZp_d2adkfd6UTb_TxHlUaNBye7ykod_MkI4jvqyfi3WoRPFRqCNihpzWxkOWVhmRXyp4HUteVo1HCVzlLSxgrONMmY-YJJKhBRsRu8hQM'
+TOKEN = 'BQCHAqSdfj9VToncKbcx6xDx7C0ay-5gCjx1sUarliQ4tPaiZQ81m7nBtgdhUo7ZCXraAvVzJXcWN5gVFxAdLvsoafFVAqr8UBZVDFvQYmknXuUxpbMCILpacGnFkFFdyhbcifTHHI9OTCdztLVcFX2XZb10H84'
 
 
 def get_artist_album(id_artist):
