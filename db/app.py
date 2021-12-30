@@ -1,10 +1,11 @@
 import requests
 import pprint
 
-URL_GET_ARTIST_ALBUM = 'https://api.spotify.com/v1/artists/{}/albums?limit=5' # GET
-URL_GET_ALBUM = 'https://api.spotify.com/v1/albums/{}' # GET
+URL_GET_ARTIST_ALBUM = 'https://api.spotify.com/v1/artists/{}/albums?market=IT&limit=5' # GET
+URL_GET_ALBUM = 'https://api.spotify.com/v1/albums/{}?market=IT' # GET
+URL_GET_TRACK_FEATURES = 'https://api.spotify.com/v1/audio-features/{}'
 
-TOKEN = 'BQBjKA66O3lhytYqO2bycq-zi0A1h-sLadfZJh6nX6hVDYEW_gk2P7fk1WWy26BDWhXocCpKrWvSrTtG5l9x17oQW9B1ji_5ob8IZrasNEFBn_EXHTPYBhCCXSztS2IOliU7IiLLVdPXRhlm9Uf_D6q14YCCKIo' 
+TOKEN = 'BQBd808sRQfnZZZ5kyLsXG5vcuSx9DKVv1a3oW7IOQIAL9NmlTJVGiwTr-OJtr-nBleUJ-0V-Fy8ydoiUJkdLpKxLZxcI4VVoIZNesvTDZx89WO0HrCcJrxG3ANF5-ZNwdjf2bUQ2jqm-ju_ocYWLHoccAC12oI' 
 
 
 def get_artist_album(id_artist):
@@ -34,7 +35,11 @@ def get_album(id_album):
     obj['date'] = response['release_date']
     obj['total_tracks'] = response['total_tracks']
     obj['duration'] = 0
-    
+
+    obj['artists'] = [] # creazione lista di artisti dell'album
+    for artist in response['artists']:
+        obj['artists'].append(artist['id'])
+
     obj['tracks'] = [] # creazione lista di tracks dell'album
     for track in response['tracks']['items']:
         obj_track = {} # creazione oggetto track
@@ -47,18 +52,34 @@ def get_album(id_album):
 
         obj_track['artists'] = []
         for artist in track['artists']:
-            obj_track['artists'].append(artist['id']) 
+            if artist['id'] not in obj['artists']:
+                obj_track['artists'].append(artist['id']) 
 
+        get_track_features(obj_track)
         obj['tracks'].append(obj_track) 
 
-    obj['artists'] = [] # creazione lista di artisti dell'album
-    for artist in response['artists']:
-        obj['artists'].append(artist['id'])
     return obj
 
+def get_track_features(track):
+    response = requests.get(
+        URL_GET_TRACK_FEATURES.format(track['id']),
+        headers = {
+            'Authorization' : 'Bearer {}'.format(TOKEN)
+        }
+    ).json() 
+    track['danceability'] = response['danceability']
+    track['enrgy'] = response['energy']
+    track['loudness'] = response['loudness']
+    track['speechiness'] = response['speechiness']
+    track['acousticness'] = response['acousticness']
+    track['instruamentalness'] = response['instrumentalness']
+    track['liveness'] = response['liveness']
+    track['valence'] = response['valence']
+    track['tempo'] = response['tempo']
+    pass
 
 if __name__ == "__main__":
-    album_list = get_artist_album('26T4yOaOoFJvUvxR87Y9HO') # id of 'bethel music' artist
-    pprint.pprint(album_list[0])
+    album_list = get_artist_album('107CG0UhUl9GJnPwF83N63') # id of artist
+    pprint.pprint(album_list)
 
 
