@@ -50,10 +50,10 @@ def get_album(id_album):
         obj_track['explicit'] = 1 if track['explicit'] else 0
         obj_track['number'] = track['track_number']
 
-        obj_track['artists'] = []
+        obj_track['ft'] = []
         for artist in track['artists']:
             if artist['id'] not in obj['artists']:
-                obj_track['artists'].append(artist['id']) 
+                obj_track['ft'].append(artist['id']) 
 
         get_track_features(obj_track)
         obj['tracks'].append(obj_track) 
@@ -79,7 +79,7 @@ def get_track_features(track):
     pass
 
 def obj_to_sql(album,set_artist):
-    insert_album = "INSERT INTO Album (id,title,numberOfTracks,image,durationMs,release)\nVALUES ('{}','{}',{},'{}',{},'{}');"
+    insert_album = "INSERT INTO Album (id,title,numberOfTracks,image,durationMs,releaseDate)\nVALUES ('{}','{}',{},'{}',{},'{}');"
     insert_track=  "VALUES ('{}','{}',{},{},{},{},{},{},{},{},{},{},{}){}"
     # TrackBelongsToAlbum
     insert_belong = "VALUES ({},{},{}){}"
@@ -99,7 +99,7 @@ def obj_to_sql(album,set_artist):
             track_list.append(insert_track.format(track['id'],track['title'],track['danceability'],track['energy'],track['loudness'],track['speechiness'],track['acousticness'],track['instrumentalness'],track['liveness'],track['valence'],track['tempo'],track['duration'],track['explicit'],sep)+'\n')
             belong_list.append(insert_belong.format(album['id'],track['id'],n,sep)+'\n')
         
-        file.write("INSERT INTO Track (id,title,danceability,energy,loudness,speechiness,acousticness,instrumentalness,liveness,valence,tempo,durationMs,explicit)\n")
+        file.write("INSERT INTO Track (id,title,danceability,energy,loudness,speechiness,acousticness,instrumentalness,liveness,valence,tempo,durationMs,isExplicit)\n")
         file.writelines(track_list)
         file.write('\n')
 
