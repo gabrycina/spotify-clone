@@ -1,11 +1,25 @@
 import requests
-import pprint
+from pprint import pprint
 
 URL_GET_ARTIST_ALBUM = 'https://api.spotify.com/v1/artists/{}/albums?market=IT&limit=5' # GET
 URL_GET_ALBUM = 'https://api.spotify.com/v1/albums/{}?market=IT' # GET
-URL_GET_TRACK_FEATURES = 'https://api.spotify.com/v1/audio-features/{}'
+URL_GET_TRACK_FEATURES = 'https://api.spotify.com/v1/audio-features/{}' # GET
+URL_GET_ARTIST = 'https://api.spotify.com/v1/artists/{}' # GET
 
 TOKEN = 'BQCYAd6Qiei9S2HuKEqp2lawWmNpTNX_ucTPSWW3ykfBKrEeoGUckRZDBmB6Q32LxtB15Eow-IKetv98vfrN9w9pc_1l_2SJWo4gU2x5sJRqrr11PMjvo8lGyjdIdeIzOzqAgTaj5ZjBdJ-s2LMaINIhyFvE5pk'
+
+def get_artist(id_artist):
+    response = requests.get(
+        URL_GET_ARTIST.format(id_artist),
+        headers = {
+            'Authorization' : 'Bearer {}'.format(TOKEN)
+        }
+    ).json()
+    obj = {}
+    obj['id'] = id_artist
+    obj['name'] = response['name']
+    obj['genres'] = response['genres']
+    return obj
 
 
 def get_artist_album(id_artist):
@@ -132,10 +146,12 @@ def obj_to_sql(album,set_artist):
     pass
 
 if __name__ == "__main__":
-    album_list = get_artist_album('107CG0UhUl9GJnPwF83N63') # id of artist
-    s = set()
-    for album in album_list:
-        obj_to_sql(album,s)
-    #pprint.pprint(album_list)
+    #album_list = get_artist_album('107CG0UhUl9GJnPwF83N63') # id of artist
+    #s = set()
+    #for album in album_list:
+    #    obj_to_sql(album,s)
+    #pprint(album_list)
+
+    pprint(get_artist('107CG0UhUl9GJnPwF83N63'))
 
 
