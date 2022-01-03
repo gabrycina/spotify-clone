@@ -46,7 +46,7 @@ create table Making(
 
 create table Track(
     id char(22) primary key,
-    title varchar(40) not null,
+    title varchar(80) not null,
     audio varchar(100) default '/',
     danceability float(3) not null,
     energy float(3) not null,

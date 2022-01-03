@@ -1,12 +1,13 @@
 import requests
 from pprint import pprint
+import sys
 
 URL_GET_ARTIST_ALBUM = 'https://api.spotify.com/v1/artists/{}/albums?market=IT&limit=5' # GET
 URL_GET_ALBUM = 'https://api.spotify.com/v1/albums/{}?market=IT' # GET
 URL_GET_TRACK_FEATURES = 'https://api.spotify.com/v1/audio-features/{}' # GET
 URL_GET_ARTIST = 'https://api.spotify.com/v1/artists/{}' # GET
 
-TOKEN = 'BQCYAd6Qiei9S2HuKEqp2lawWmNpTNX_ucTPSWW3ykfBKrEeoGUckRZDBmB6Q32LxtB15Eow-IKetv98vfrN9w9pc_1l_2SJWo4gU2x5sJRqrr11PMjvo8lGyjdIdeIzOzqAgTaj5ZjBdJ-s2LMaINIhyFvE5pk'
+TOKEN = 'BQCgwzrGTxEWIR0bi_iAGEPfXgnQi0AK6jCPO5dZCpa9I-544IkKfWP8TZztGlbWzotf1qnqys2E94YhP681YH06zfBoAyeHIaPgroxnUK7R12Ud7mq3iO-ieZ3BQz_rx8iQ6ars9FdCO47rdcGM8Fyo-mWkAL4'
 
 def get_artist(id_artist):
     response = requests.get(
@@ -17,7 +18,7 @@ def get_artist(id_artist):
     ).json()
     obj = {}
     obj['id'] = id_artist
-    obj['name'] = response['name']
+    obj['name'] = response['name'].replace("'",' ').replace('"',' ')
     obj['genres'] = response['genres']
     return obj
 
@@ -44,7 +45,7 @@ def get_album(id_album):
     
     obj = {} # creazione oggetto album
     obj['id'] = id_album
-    obj['title'] = response['name']
+    obj['title'] = response['name'].replace("'",' ').replace('"',' ')
     obj['image'] = response['images'][0]['url']
     obj['date'] = response['release_date']
     obj['total_tracks'] = response['total_tracks']
@@ -58,7 +59,7 @@ def get_album(id_album):
     for track in response['tracks']['items']:
         obj_track = {} # creazione oggetto track
         obj_track['id'] = track['id']
-        obj_track['title'] = track['name']
+        obj_track['title'] = track['name'].replace("'",' ').replace('"',' ')
         obj_track['duration'] = track['duration_ms']
         obj['duration'] += track['duration_ms'] # l'album ha come durata la somma delle durate delle tracks
         obj_track['explicit'] = 1 if track['explicit'] else 0
@@ -92,17 +93,19 @@ def get_track_features(track):
     track['tempo'] = round(response['tempo'],3)
     pass
 
-def obj_to_sql(album,set_artist):
+def obj_to_sql(album,set_artist,genres):
     insert_album = "INSERT INTO Album (id,title,numberOfTracks,image,durationMs,releaseDate)\nVALUES ('{}','{}',{},'{}',{},'{}');\n"
-    insert_track = ["INSERT INTO Track (id,title,danceability,energy,loudness,speechiness,acousticness,instrumentalness,liveness,valence,tempo,durationMs,isExplicit)\n",
-                    "VALUES ('{}','{}',{},{},{},{},{},{},{},{},{},{},{}){}\n"]
-    insert_belong = ["INSERT INTO TrackBelongsTo(album,track,position)\n",
-                     "VALUES ('{}','{}',{}){}\n"]
-    insert_making = ["INSERT INTO Making (artist,album)\n",
-                     "VALUES ('{}','{}'){}\n"]
+    insert_track = ["INSERT INTO Track (id,title,danceability,energy,loudness,speechiness,acousticness,instrumentalness,liveness,valence,tempo,durationMs,isExplicit) VALUES\n",
+                    "('{}','{}',{},{},{},{},{},{},{},{},{},{},{}){}\n"]
+    insert_belong = ["INSERT INTO TrackBelongsToAlbum (album,track,position) VALUES\n",
+                     "('{}','{}',{}){}\n"]
+    insert_making = ["INSERT INTO Making (artist,album) VALUES\n",
+                     "('{}','{}'){}\n"]
     insert_ft = "INSERT INTO Features (artist,track) VALUES ('{}','{}');\n"
+    # se avevamo già fatto l'insert della categoria farà l'ignore
+    insert_category = "INSERT INTO TrackBelongsToCategory(category,track) VALUES ('{}','{}');\n"
 
-    with open('prova.sql','a') as file:
+    with open('discography.sql','a') as file:
 
         file.write("\n#--------------{}--------------\n".format(album['title']))
         file.write(insert_album.format(album['id'],album['title'],album['total_tracks'],album['image'],album['duration'],album['date']))
@@ -121,12 +124,16 @@ def obj_to_sql(album,set_artist):
         track_list = []
         belong_list = []
         ft_list = []
+        category_list = []
         sep = ','
         for n,track in enumerate(album['tracks']): # track in album
             if n == len(album['tracks'])-1:
                 sep = ';'
             track_list.append(insert_track[1].format(track['id'],track['title'],track['danceability'],track['energy'],track['loudness'],track['speechiness'],track['acousticness'],track['instrumentalness'],track['liveness'],track['valence'],track['tempo'],track['duration'],track['explicit'],sep))
             belong_list.append(insert_belong[1].format(album['id'],track['id'],n,sep))
+            for category in genres:
+                category_list.append(insert_category.format(category,track['id']))
+
             for ft in track['ft']: # ft in track
                 ft_list.append(insert_ft.format(ft,track['id']))
                 set_artist.add(ft)
@@ -140,18 +147,40 @@ def obj_to_sql(album,set_artist):
         file.writelines(belong_list)
         file.write('\n')
 
+        file.writelines(category_list)
+        file.writelines('\n')
+
         if len(ft_list) != 0:
             file.writelines(ft_list)
         file.write('#----------------------------------------------\n\n')
     pass
 
-if __name__ == "__main__":
-    #album_list = get_artist_album('107CG0UhUl9GJnPwF83N63') # id of artist
-    #s = set()
-    #for album in album_list:
-    #    obj_to_sql(album,s)
-    #pprint(album_list)
+def base_function(id_artist):
+    primary_artist = get_artist(id_artist)
+    artist_set = set()
+    album_list = get_artist_album(id_artist)
+    for album in album_list:
+        obj_to_sql(album,artist_set,primary_artist['genres'])
 
-    pprint(get_artist('107CG0UhUl9GJnPwF83N63'))
+    insert_artist = "INSERT IGNORE INTO Artist (id,name,isVerified,nFollowers,isBand) VALUES ('{}','{}',1,0,0);\n"
+    insert_category = "INSERT IGNORE INTO Category (name) VALUES ('{}');\n"
+    with open('artist_and_category.sql','a') as file:
+        file.write('\n#-------{}-------\n'.format(primary_artist['name']))
+
+        for id in artist_set:
+            artist = get_artist(id)
+            file.write(insert_artist.format(artist['id'],artist['name']))
+        file.write('\n')
+
+        for category in primary_artist['genres']:
+            file.write(insert_category.format(category))
+        file.write('\n')
+
+        file.write('#------------------------------------\n\n')
+
+
+
+if __name__ == "__main__":
+    base_function(sys.argv[1])
 
 
