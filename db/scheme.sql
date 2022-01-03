@@ -58,7 +58,8 @@ create table Track(
     instrumentalness float(3) not null, 
     tempo int not null, 
     durationMs int not null, 
-    isExplicit int not null
+    isExplicit int not null,
+    plays int default 0
 );
 
 create table Similarity(
