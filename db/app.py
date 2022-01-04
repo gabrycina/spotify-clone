@@ -7,7 +7,7 @@ URL_GET_ALBUM = 'https://api.spotify.com/v1/albums/{}?market=IT' # GET
 URL_GET_TRACK_FEATURES = 'https://api.spotify.com/v1/audio-features/{}' # GET
 URL_GET_ARTIST = 'https://api.spotify.com/v1/artists/{}' # GET
 
-TOKEN = 'BQCgwzrGTxEWIR0bi_iAGEPfXgnQi0AK6jCPO5dZCpa9I-544IkKfWP8TZztGlbWzotf1qnqys2E94YhP681YH06zfBoAyeHIaPgroxnUK7R12Ud7mq3iO-ieZ3BQz_rx8iQ6ars9FdCO47rdcGM8Fyo-mWkAL4'
+TOKEN = 'BQCcJWHmesn-8ZgkDci5hJKnsIr0wRjO9btp4U9f6BPTETw2d8-m4u_2hOmdTA5bRC6XPNLde-QTMdS__lc1PkoXGysHNDvUDve6T4vt8IbGngczCamQwAXECk8NZ5KFXoXrXq6VGDorAk_ybh28sm1fLBNF-aY'
 
 def get_artist(id_artist):
     response = requests.get(
