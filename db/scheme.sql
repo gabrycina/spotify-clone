@@ -93,7 +93,7 @@ create table Features(
 
 create table User(
     id char(22) primary key,
-    track char(22) not null,
+    track char(22) default null,
     image varchar(100) default '/', 
     username varchar(30) not null unique,
     email varchar(40) not null unique, 
