@@ -184,7 +184,8 @@ create table DailySuggestion(
 create table LikesPlaylist(
     playlist char(22),
     user char(22),
-
+	date date not null,
+    
     primary key(playlist, user),
     foreign key (playlist) references Playlist(id),
     foreign key (user) references User(id)
@@ -193,7 +194,8 @@ create table LikesPlaylist(
 create table LikesAlbum(
     album char(22),
     user char(22),
-
+	date date not null,
+    
     primary key(album, user),
     foreign key (album) references Album(id),
     foreign key (user) references User(id)
