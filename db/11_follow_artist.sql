@@ -1,5 +1,5 @@
 #------------------- Emma rock -----------------------
-INSERT INTO FollowArtist(user,artist) VALUES('QKedDkxLZFOPQS8pAhkj01','4gARZz9eV7zbGbtOjhVTPF');
+INSERT INTO FollowArtist(user,artist) VALUES('QKedDkxLZFOPQS8pAhkj01','7dGJo4pcD2V6oG8kP0tJRR');
 INSERT INTO FollowArtist(user,artist) VALUES('QKedDkxLZFOPQS8pAhkj01','53XhwfbYqKCa1cC15pYq2q');
 INSERT INTO FollowArtist(user,artist) VALUES('QKedDkxLZFOPQS8pAhkj01','3836OTICMPjhTMMcpPw4EC');
 INSERT INTO FollowArtist(user,artist) VALUES('QKedDkxLZFOPQS8pAhkj01','1dfeR4HaWDbWqFHLkxsg1d');
@@ -30,4 +30,4 @@ INSERT INTO FollowArtist(user,artist) VALUES('RBtBUZTItc3plsuGbxGJ05','6eUKZXaKk
 INSERT INTO FollowArtist(user,artist) VALUES('RBtBUZTItc3plsuGbxGJ05','6GEykX11lQqp92UVOQQCC7');
 INSERT INTO FollowArtist(user,artist) VALUES('RBtBUZTItc3plsuGbxGJ05','7c0XG5cIJTrrAgEC3ULPiq');
 INSERT INTO FollowArtist(user,artist) VALUES('RBtBUZTItc3plsuGbxGJ05','6LuN9FCkKOj5PcnpouEgny');
-INSERT INTO FollowArtist(user,artist) VALUES('RBtBUZTItc3plsuGbxGJ05','0tvpihdAsKiNnP6sWS3jUI');
+INSERT INTO FollowArtist(user,artist) VALUES('RBtBUZTItc3plsuGbxGJ05','4oUHIQIBe0LHzYfvXNW4QM');
