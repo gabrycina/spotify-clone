@@ -30,8 +30,8 @@ GET_SIMILAR_TRACK = (
     "select track1, track2 "
     "from Similarity "
     "where track1='{}' or track2='{}' "
-    "order by amount desc "
-    "limit 20"
+    "order by amount "
+    "limit 10"
 )
 
 INSERT_TRACK = (
