@@ -39,7 +39,7 @@ VALUES ('WZ9XhElmGqPJO7nHWIDP04','wz9xHeLMgQpjo7Nhwidp04');
 #----------------------------------------------------------
 
 
-#-- password luke 
+#------------------- password luke -----------------------
 INSERT INTO User(id,username,email,password,dob) VALUES('RBtBUZTItc3plsuGbxGJ05','Luke hip hop','Luke@gmail.com','cccf52f3d03c5072ee64a136f74fc56b27e04f15ffe5d1d277d58ab18d94b327','2001-02-28');
 
 INSERT INTO Playlist (id,creator,name,isDailySuggestion)
