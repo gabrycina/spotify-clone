@@ -31,8 +31,8 @@ create table ArtistBelongsToBand(
     role varchar(20),
     
     primary key (singleArtist, band),
-    foreign key (singleArtist) references Artist(id),
-    foreign key (band) references Artist(id)
+    foreign key (singleArtist) references Artist(id) on delete cascade,
+    foreign key (band) references Artist(id) on delete cascade
 );
 
 create table Making(
@@ -40,8 +40,8 @@ create table Making(
     album char(22),
 
     primary key (artist, album),
-    foreign key (artist) references Artist(id),
-    foreign key (album) references Album(id)
+    foreign key (artist) references Artist(id) on delete cascade,
+    foreign key (album) references Album(id) on delete cascade
 );
 
 create table Track(
@@ -68,8 +68,8 @@ create table Similarity(
     amount float(3) not null,
 
     primary key(track1, track2),
-    foreign key (track1) references Track(id),
-    foreign key (track2) references Track(id)
+    foreign key (track1) references Track(id) on delete cascade,
+    foreign key (track2) references Track(id) on delete cascade
 );
 
 create table TrackBelongsToAlbum(
@@ -78,8 +78,8 @@ create table TrackBelongsToAlbum(
     position int not null,
 
     primary key(album, track),
-    foreign key (album) references Album(id),
-    foreign key (track) references Track(id)
+    foreign key (album) references Album(id) on delete cascade,
+    foreign key (track) references Track(id) on delete cascade
 );
 
 create table Features(
@@ -87,8 +87,8 @@ create table Features(
     track char(22),
 
     primary key(artist, track),
-    foreign key (artist) references Artist(id),
-    foreign key (track) references Track(id)
+    foreign key (artist) references Artist(id) on delete cascade,
+    foreign key (track) references Track(id) on delete cascade
 );
 
 create table User(
@@ -100,7 +100,7 @@ create table User(
     password varchar(64) not null, 
     dob date, 
     
-    foreign key (track) references Track(id)
+    foreign key (track) references Track(id) on delete set null
 );
 
 create table FollowUser(
@@ -108,8 +108,8 @@ create table FollowUser(
     followed char(22),
 
     primary key(follower, followed),
-    foreign key (follower) references User(id),
-    foreign key (followed) references User(id)
+    foreign key (follower) references User(id) on delete cascade,
+    foreign key (followed) references User(id) on delete cascade
 );
 
 create table ListenedTo(
@@ -118,8 +118,8 @@ create table ListenedTo(
     date date not null,
 
     primary key(user, track, date),
-    foreign key (track) references Track(id),
-    foreign key (user) references User(id)
+    foreign key (track) references Track(id) on delete cascade,
+    foreign key (user) references User(id) on delete cascade
 );
 
 create table LikesTrack(
@@ -128,8 +128,8 @@ create table LikesTrack(
     date date not null,
 
     primary key(user, track),
-    foreign key (user) references User(id),
-    foreign key (track) references Track(id)
+    foreign key (user) references User(id) on delete cascade,
+    foreign key (track) references Track(id) on delete cascade
 );
 
 create table FollowArtist(
@@ -137,8 +137,8 @@ create table FollowArtist(
     artist char(22),
 
     primary key(user, artist),
-    foreign key (user) references User(id),
-    foreign key (artist) references Artist(id)
+    foreign key (user) references User(id) on delete cascade,
+    foreign key (artist) references Artist(id) on delete cascade
 );
 
 create table Category(
@@ -150,8 +150,8 @@ create table TrackBelongsToCategory(
     track char(22),
 
     primary key(category, track),
-    foreign key (category) references Category(name),
-    foreign key (track) references Track(id)
+    foreign key (category) references Category(name) on delete cascade,
+    foreign key (track) references Track(id) on delete cascade
 );
 
 create table Playlist(
@@ -161,7 +161,7 @@ create table Playlist(
     description varchar(100) default '', 
     isDailySuggestion int default 0,
 
-    foreign key (creator) references User(id)
+    foreign key (creator) references User(id) on delete cascade
 );
 
 create table TrackBelongsToPlaylist(
@@ -170,15 +170,15 @@ create table TrackBelongsToPlaylist(
     addedDate date not null,
 
     primary key(track, playlist),
-    foreign key (track) references Track(id),
-    foreign key (playlist) references Playlist(id)
+    foreign key (track) references Track(id) on delete cascade,
+    foreign key (playlist) references Playlist(id) on delete cascade
 );
 
 create table DailySuggestion(
     id char(22) primary key, 
     suggestedFor char(22) not null,
     
-    foreign key (suggestedFor) references User(id)
+    foreign key (suggestedFor) references User(id) on delete cascade
 );
 
 create table LikesPlaylist(
@@ -187,8 +187,8 @@ create table LikesPlaylist(
 	date date not null,
     
     primary key(playlist, user),
-    foreign key (playlist) references Playlist(id),
-    foreign key (user) references User(id)
+    foreign key (playlist) references Playlist(id) on delete cascade,
+    foreign key (user) references User(id) on delete cascade
 );
 
 create table LikesAlbum(
@@ -197,8 +197,8 @@ create table LikesAlbum(
 	date date not null,
     
     primary key(album, user),
-    foreign key (album) references Album(id),
-    foreign key (user) references User(id)
+    foreign key (album) references Album(id) on delete cascade,
+    foreign key (user) references User(id) on delete cascade
 );
 
 show tables;
