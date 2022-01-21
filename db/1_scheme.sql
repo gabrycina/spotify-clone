@@ -202,3 +202,15 @@ create table LikesAlbum(
 );
 
 show tables;
+
+
+CREATE TRIGGER nFollowerArtist
+AFTER INSERT ON FollowArtist
+FOR EACH ROW
+UPDATE Artist SET Artist.nFollowers = 1 + Artist.nFollowers WHERE Artist.id = new.artist;
+
+
+CREATE TRIGGER trackPlays
+AFTER INSERT ON ListenedTo
+FOR EACH ROW
+UPDATE Track SET Track.plays = 1 + Track.plays WHERE Track.id = new.track;
