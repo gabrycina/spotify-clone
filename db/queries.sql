@@ -3,31 +3,31 @@
 #-----per artisti-----
 SELECT * 
 FROM Artist 
-WHERE Artist.name='Imagine Dragons';
+WHERE Artist.name LIKE '%Imagine%';
 
 #-----per utenti-----
 SELECT * 
 FROM User 
-WHERE User.username='Emma rock';
+WHERE User.username LIKE '%Emma rock%';
 
 #-----per playlist-----
 SELECT * 
 FROM Playlist,User 
-WHERE User.id=Playlist.creator AND Playlist.name='This is Gospel';
+WHERE User.id=Playlist.creator AND Playlist.name LIKE '%This is Gospel%';
 
 #-----per album-----
 SELECT * 
 FROM Album, Artist, Making 
-WHERE Album.id=Making.album AND Artist.id=Making.artist AND Album.title='If I Know Me';
+WHERE Album.id=Making.album AND Artist.id=Making.artist AND Album.title LIKE '%If I Know Me%';
 
 #-----per tracks-----
 SELECT * 
 FROM Track,Artist,Album,TrackBelongsToAlbum,Making 
-WHERE Track.id=TrackBelongsToAlbum.track AND Album.id=TrackBelongsToAlbum.album AND Making.album=Album.id AND Making.artist=Artist.id;
+WHERE Track.id=TrackBelongsToAlbum.track AND Album.id=TrackBelongsToAlbum.album AND Making.album=Album.id AND Making.artist=Artist.id AND Track.title LIKE '%What%';
 
 SELECT * 
 FROM Track,Features,Artist 
-WHERE Track.id=Features.track AND Artist.id=Features.artist;
+WHERE Track.id=Features.track AND Artist.id=Features.artist AND Track.title LIKE '%What%';
 
 
 #-----Aggiunta brano in una playlist-----
@@ -61,16 +61,16 @@ FROM(
 
 #-----Visualizzazione numero di like ultimo mese per utenti
 SELECT COUNT(LikesTrack.track)
-FROM (User JOIN LikesTrack on User.id = LikesTrack.user)
-WHERE User.id='QKedDkxLZFOPQS8pAhkj01' AND DATE_ADD(NOW(),INTERVAL -30 DAY) < LikesTrack.date;
+FROM (User JOIN LikesTrack on User.id=LikesTrack.user)
+WHERE User.id='QKedDkxLZFOPQS8pAhkj01' AND LikesTrack.date > DATE_ADD(NOW(),INTERVAL -30 DAY);
 
 SELECT COUNT(LikesPlaylist.playlist)
 FROM (User JOIN LikesPlaylist on User.id=LikesPlaylist.user)
-WHERE User.id='QKedDkxLZFOPQS8pAhkj01' AND DATE_ADD(NOW(),INTERVAL -30 DAY) < LikesPlaylist.date;
+WHERE User.id='QKedDkxLZFOPQS8pAhkj01' AND LikesPlaylist.date > DATE_ADD(NOW(),INTERVAL -30 DAY); 
 
 SELECT COUNT(LikesAlbum.album)
 FROM (User JOIN LikesAlbum on User.id=LikesAlbum.album)
-WHERE User.id='QKedDkxLZFOPQS8pAhkj01' AND DATE_ADD(NOW(),INTERVAL -30 DAY) < LikesAlbum.date;
+WHERE User.id='QKedDkxLZFOPQS8pAhkj01' AND LikesAlbum.date > DATE_ADD(NOW(),INTERVAL -30 DAY);
 
 
 #-----Visualizzazione nomi dei followers
@@ -86,12 +86,13 @@ WHERE Track.id='22zRzwWJp3gfM1O00CsRGm';
 
 
 #-----Like Bomb playlist
-SELECT Track.id 
-FROM ((Playlist JOIN TrackBelongsToPlaylist ON Playlist.id=TrackBelongsToPlaylist.playlist)
-JOIN Track ON Track.id=TrackBelongsToPlaylist.track);
+SELECT track
+FROM TrackBelongsToPlaylist
+WHERE playlist="id_playlist";
 
+#then, inside a loop for each track id
 INSERT INTO LikesTrack(user,track,date)
-VALUES ('userid','trackid', NOW()) ;
+VALUES ('userid','trackid', NOW());
 
 
 #-----Classifica autori più ascoltati della settimana [high time complexity]
@@ -99,14 +100,14 @@ SELECT  ID, NAME, SUM(NListen) TotalListen
 FROM ( 
             SELECT Artist.id ID,Artist.name NAME,COUNT(ListenedTo.track) NListen
 						FROM (((((Artist JOIN Making ON Making.artist=Artist.id) JOIN Album on Making.Album=Album.id) JOIN TrackBelongsToAlbum on TrackBelongsToAlbum.Album=Album.id) JOIN Track ON TrackBelongsToAlbum.track=Track.id) JOIN ListenedTo ON ListenedTo.track=Track.id)
-						WHERE DATE_ADD(NOW(),INTERVAL -7 DAY) < ListenedTo.date
-						GROUP BY Artist.id
+						WHERE ListenedTo.date > DATE_ADD(NOW(),INTERVAL -7 DAY)
+						GROUP BY Artist.id,Artist.name
             UNION ALL
             SELECT Artist.id ID,Artist.name NAME,COUNT(ListenedTo.track) NListen
 						FROM (((Artist JOIN Features ON Artist.id=Features.artist) JOIN Track ON Track.id=Features.track) JOIN ListenedTo ON Track.id=ListenedTo.track)
-						WHERE DATE_ADD(NOW(),INTERVAL -7 DAY) < ListenedTo.date
-						GROUP BY Artist.id
-) Leaderboard
+						WHERE ListenedTo.date > DATE_ADD(NOW(),INTERVAL -7 DAY)
+						GROUP BY Artist.id,Artist.name
+) WeeklyLeaderboard
 GROUP BY ID, NAME
 ORDER BY TotalListen DESC;
 
@@ -115,56 +116,52 @@ ORDER BY TotalListen DESC;
 DROP VIEW WeeklyLeaderboard;
 DROP VIEW WeeklyLikes;
 
-use spotty;
-
 CREATE VIEW WeeklyLeaderboard AS
 SELECT  ID, NAME, SUM(NListen) TotalListen
 FROM ( 
             SELECT Artist.id ID,Artist.name NAME,COUNT(ListenedTo.track) NListen
 						FROM (((((Artist JOIN Making ON Making.artist=Artist.id) JOIN Album on Making.Album=Album.id) JOIN TrackBelongsToAlbum on TrackBelongsToAlbum.Album=Album.id) JOIN Track ON TrackBelongsToAlbum.track=Track.id) JOIN ListenedTo ON ListenedTo.track=Track.id)
-						WHERE DATE_ADD(NOW(),INTERVAL -365 DAY) < ListenedTo.date
+						WHERE DATE_ADD(NOW(),INTERVAL -7 DAY) < ListenedTo.date
 						GROUP BY Artist.id
             UNION ALL
             SELECT Artist.id ID,Artist.name NAME,COUNT(ListenedTo.track) NListen
 						FROM (((Artist JOIN Features ON Artist.id=Features.artist) JOIN Track ON Track.id=Features.track) JOIN ListenedTo ON Track.id=ListenedTo.track)
-						WHERE DATE_ADD(NOW(),INTERVAL -365 DAY) < ListenedTo.date
+						WHERE DATE_ADD(NOW(),INTERVAL -7 DAY) < ListenedTo.date
 						GROUP BY Artist.id
 ) WeeklyLeaderboard
 GROUP BY ID, NAME
 ORDER BY TotalListen DESC;
+
+SELECT * FROM WeeklyLeaderboard;
 
 CREATE VIEW WeeklyLikes AS 
 SELECT ID, NAME, SUM(NLikes) TotalLikes
 FROM(
 						SELECT Artist.id ID,Artist.name NAME,COUNT(LikesTrack.track) NLikes
 						FROM (((((Artist JOIN Making ON Making.artist=Artist.id) JOIN Album on Making.Album=Album.id) JOIN TrackBelongsToAlbum on TrackBelongsToAlbum.Album=Album.id) JOIN Track ON TrackBelongsToAlbum.track=Track.id) JOIN LikesTrack ON LikesTrack.track=Track.id)
-						WHERE DATE_ADD(NOW(),INTERVAL -365 DAY) < LikesTrack.date
+						WHERE DATE_ADD(NOW(),INTERVAL -7 DAY) < LikesTrack.date
 						GROUP BY Artist.id
 						UNION ALL
 						SELECT Artist.id ID,Artist.name NAME,COUNT(LikesTrack.track) NLikes
 						FROM (((Artist JOIN Features ON Artist.id=Features.artist) JOIN Track ON Track.id=Features.track) JOIN LikesTrack ON Track.id=LikesTrack.track)
-						WHERE DATE_ADD(NOW(),INTERVAL -365 DAY) < LikesTrack.date
+						WHERE DATE_ADD(NOW(),INTERVAL -7 DAY) < LikesTrack.date
 						GROUP BY Artist.id
 ) WeeklyLikes
 GROUP BY ID,NAME
 ORDER BY TotalLikes DESC;
 
+SELECT * FROM WeeklyLikes;
 
-#-----VERSIONE CHE CONSIDERA I LIKE
+#---VERSIONE CHE CONSIDERA I LIKE
 SELECT WeeklyLikes.ID,WeeklyLikes.NAME, 
 ROUND((
-	(WeeklyLikes.TotalLikes*0.8)
+	((WeeklyLikes.TotalLikes/100)*0.8)
 	+
-	(WeeklyLeaderboard.TotalListen*(SELECT paid FROM Revenue))
+	((WeeklyLeaderboard.TotalListen/(SELECT reproduction FROM Revenue))*(SELECT paid FROM Revenue))
 ), 2) Revenue
 FROM WeeklyLeaderboard JOIN WeeklyLikes ON WeeklyLikes.ID=WeeklyLeaderboard.ID;
 
-
-#-----VERSIONE CHE CONSIDERA SOLO LE RIPRODUZIONI
+#----VERSIONE CHE CONSIDERA SOLO LE RIPRODUZIONI
 SELECT WeeklyLikes.ID,WeeklyLikes.NAME, 
 ROUND (((WeeklyLeaderboard.TotalListen/(SELECT reproduction FROM Revenue))*(SELECT paid FROM Revenue)), 2) Revenue
 FROM WeeklyLeaderboard JOIN WeeklyLikes ON WeeklyLikes.ID=WeeklyLeaderboard.ID;
-
-select * from DailySuggestion;
-
-select * from Track where plays != 0;
