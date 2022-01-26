@@ -204,6 +204,7 @@ create table LikesAlbum(
 show tables;
 
 
+
 CREATE TRIGGER nFollowerArtist
 AFTER INSERT ON FollowArtist
 FOR EACH ROW
