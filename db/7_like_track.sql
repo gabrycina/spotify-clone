@@ -1,6 +1,6 @@
 #-------likesTrack Emma rock------
-INSERT INTO LikesTrack(user,track,date) VALUES('QKedDkxLZFOPQS8pAhkj01','02KiSb9pYNhbT0zzm1RASE','2021-01-12');
-INSERT INTO LikesTrack(user,track,date) VALUES('QKedDkxLZFOPQS8pAhkj01','02UcizqspSoabvdD4pX2pL','2021-01-22');
+INSERT INTO LikesTrack(user,track,date) VALUES('QKedDkxLZFOPQS8pAhkj01','02KiSb9pYNhbT0zzm1RASE','2022-01-25');
+INSERT INTO LikesTrack(user,track,date) VALUES('QKedDkxLZFOPQS8pAhkj01','02UcizqspSoabvdD4pX2pL','2022-01-23');
 INSERT INTO LikesTrack(user,track,date) VALUES('QKedDkxLZFOPQS8pAhkj01','0A0t5TEXSZxDFyFwfRYFNf','2021-02-11');
 INSERT INTO LikesTrack(user,track,date) VALUES('QKedDkxLZFOPQS8pAhkj01','0Qj97mPUnmujZBPCmWpCCW','2021-02-28');
 INSERT INTO LikesTrack(user,track,date) VALUES('QKedDkxLZFOPQS8pAhkj01','0qZXAGI1FPTn0IM7tvyqrJ','2021-03-14');
@@ -27,8 +27,8 @@ INSERT INTO LikesTrack(user,track,date) VALUES('QKedDkxLZFOPQS8pAhkj01','3EWv66R
 INSERT INTO LikesTrack(user,track,date) VALUES('QKedDkxLZFOPQS8pAhkj01','3iuwYa2720d206w4WgO2ZE','2021-12-31');
 
 #-------likesTrack Andres rap------
-INSERT INTO LikesTrack(user,track,date) VALUES('fDvg6G63EGWEDstKuQ3u02','05mDaV9Vb3wrzjF6OPZnhq','2021-01-12');
-INSERT INTO LikesTrack(user,track,date) VALUES('fDvg6G63EGWEDstKuQ3u02','09IOPhEh1OMe0HD9b36FJk','2021-01-22');
+INSERT INTO LikesTrack(user,track,date) VALUES('fDvg6G63EGWEDstKuQ3u02','05mDaV9Vb3wrzjF6OPZnhq','2022-01-23');
+INSERT INTO LikesTrack(user,track,date) VALUES('fDvg6G63EGWEDstKuQ3u02','09IOPhEh1OMe0HD9b36FJk','2022-01-23');
 INSERT INTO LikesTrack(user,track,date) VALUES('fDvg6G63EGWEDstKuQ3u02','0BsHTvuJOTqugNlgRG9ZF0','2021-02-11');
 INSERT INTO LikesTrack(user,track,date) VALUES('fDvg6G63EGWEDstKuQ3u02','0e7ipj03S05BNilyu5bRzt','2021-02-28');
 INSERT INTO LikesTrack(user,track,date) VALUES('fDvg6G63EGWEDstKuQ3u02','0Fn7tvBkLMTNVMAqizgH4k','2021-03-14');
@@ -55,8 +55,8 @@ INSERT INTO LikesTrack(user,track,date) VALUES('fDvg6G63EGWEDstKuQ3u02','2C6WXnm
 INSERT INTO LikesTrack(user,track,date) VALUES('fDvg6G63EGWEDstKuQ3u02','2cvOfKHOHgwQlLiuLKP2xR','2021-12-31');
 
 #-------likesTrack Gabby country------
-INSERT INTO LikesTrack(user,track,date) VALUES('9fPfGMn2IJJZG1Sy0J1t03','03d8S7FBY2kIzhP0E7l4rn','2021-01-12');
-INSERT INTO LikesTrack(user,track,date) VALUES('9fPfGMn2IJJZG1Sy0J1t03','0DBb4vItW595Mljc7vXaVu','2021-01-22');
+INSERT INTO LikesTrack(user,track,date) VALUES('9fPfGMn2IJJZG1Sy0J1t03','03d8S7FBY2kIzhP0E7l4rn','2022-01-24');
+INSERT INTO LikesTrack(user,track,date) VALUES('9fPfGMn2IJJZG1Sy0J1t03','0DBb4vItW595Mljc7vXaVu','2022-01-24');
 INSERT INTO LikesTrack(user,track,date) VALUES('9fPfGMn2IJJZG1Sy0J1t03','0Nd1O1ML3NNvEOXjVp28Jm','2021-02-11');
 INSERT INTO LikesTrack(user,track,date) VALUES('9fPfGMn2IJJZG1Sy0J1t03','0OxBfQoUuoIvZftgqJhGSk','2021-02-28');
 INSERT INTO LikesTrack(user,track,date) VALUES('9fPfGMn2IJJZG1Sy0J1t03','0UotfxRXpJwpem9QheCD5a','2021-03-14');
@@ -83,8 +83,8 @@ INSERT INTO LikesTrack(user,track,date) VALUES('9fPfGMn2IJJZG1Sy0J1t03','4CVLuvA
 INSERT INTO LikesTrack(user,track,date) VALUES('9fPfGMn2IJJZG1Sy0J1t03','4dCqcIjr2rIAoTa6oTUUql','2021-12-31');
 
 #-------likesTrack Ryoga pop------
-INSERT INTO LikesTrack(user,track,date) VALUES('wz9xHeLMgQpjo7Nhwidp04','0oaY19dUwZimIgzn3ZZLZO','2021-01-12');
-INSERT INTO LikesTrack(user,track,date) VALUES('wz9xHeLMgQpjo7Nhwidp04','137mSruegm1u6x9NvwiagR','2021-01-22');
+INSERT INTO LikesTrack(user,track,date) VALUES('wz9xHeLMgQpjo7Nhwidp04','0oaY19dUwZimIgzn3ZZLZO','2022-01-25');
+INSERT INTO LikesTrack(user,track,date) VALUES('wz9xHeLMgQpjo7Nhwidp04','137mSruegm1u6x9NvwiagR','2022-01-22');
 INSERT INTO LikesTrack(user,track,date) VALUES('wz9xHeLMgQpjo7Nhwidp04','1nahzW3kfMuwReTka28tH5','2021-02-11');
 INSERT INTO LikesTrack(user,track,date) VALUES('wz9xHeLMgQpjo7Nhwidp04','27UcQ6dAvQrgH9C880rCM3','2021-02-28');
 INSERT INTO LikesTrack(user,track,date) VALUES('wz9xHeLMgQpjo7Nhwidp04','2tB9OFgAHjAds3cqquLlvp','2021-03-14');
@@ -111,8 +111,8 @@ INSERT INTO LikesTrack(user,track,date) VALUES('wz9xHeLMgQpjo7Nhwidp04','2K1zp0p
 INSERT INTO LikesTrack(user,track,date) VALUES('wz9xHeLMgQpjo7Nhwidp04','2P4OICZRVAQcYAV2JReRfj','2021-12-31');
 
 #-------likesTrack Luke hip hop------
-INSERT INTO LikesTrack(user,track,date) VALUES('RBtBUZTItc3plsuGbxGJ05','02oJPSOD543viMH6d5VZkM','2021-01-12');
-INSERT INTO LikesTrack(user,track,date) VALUES('RBtBUZTItc3plsuGbxGJ05','086LXfSk4U5XEALardCE7k','2021-01-22');
+INSERT INTO LikesTrack(user,track,date) VALUES('RBtBUZTItc3plsuGbxGJ05','02oJPSOD543viMH6d5VZkM','2022-01-12');
+INSERT INTO LikesTrack(user,track,date) VALUES('RBtBUZTItc3plsuGbxGJ05','086LXfSk4U5XEALardCE7k','2022-01-22');
 INSERT INTO LikesTrack(user,track,date) VALUES('RBtBUZTItc3plsuGbxGJ05','08ir631EiCA7xIms7JDp15','2021-02-11');
 INSERT INTO LikesTrack(user,track,date) VALUES('RBtBUZTItc3plsuGbxGJ05','09FfQO3PqHO4HIJL511Ksi','2021-02-28');
 INSERT INTO LikesTrack(user,track,date) VALUES('RBtBUZTItc3plsuGbxGJ05','0BUFqsMsqAmKQPhLBXnmv7','2021-03-14');
