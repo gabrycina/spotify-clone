@@ -4,7 +4,7 @@ from pprint import pprint
 
 
 # DB CONNECTION
-connection = db.connect(user='root', password='', host='localhost',
+connection = db.connect(user='root', password='admin', host='localhost',
                         database='spotty', auth_plugin='mysql_native_password')
 cursor = connection.cursor()
 
