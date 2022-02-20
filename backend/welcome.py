@@ -2,27 +2,16 @@ from flask import Blueprint, Flask, request, jsonify
 from __init__ import mysql
 import MySQLdb.cursors
 
-search_bp = Blueprint('search', __name__)
-
-TRACK_DATA = (
-    "SELECT T.title, Al.image, A.name, T.audio, T.durationMs "
-    "FROM Track T , Album Al, Artist A , TrackBelongsToAlbum Tb , Making M " 
-    "WHERE T.id=Tb.track and Tb.album=Al.id and Al.id=M.album and M.artist=A.id "
-    "and T.title like '%{}%'"
-)
-
-ARTIST_DATA = (
-    "SELECT id, name, image "
-    "FROM Artist " 
-    "WHERE name like '%{}%'"
-)
+welcome_bp = Blueprint('welcome', __name__)
 
 ALBUM_DATA = (
     "SELECT AL.title, AL.id, AL.image, max(A.name) as name "
-    "FROM Album AL, Making M, Artist A "
-    "WHERE AL.id=M.album and M.artist=A.id "
-    "and AL.title like '%{}%' "
-    "GROUP BY AL.id"
+    "FROM Album AL, Making M, Artist A, LikesAlbum Lk "
+    "WHERE AL.id=M.album and M.artist=A.id and LK.album=AL.id "
+    "and LK.user = '{}' "
+    "GROUP BY AL.id "
+    "ORDER BY Lk.date desc "
+    "Limit 3"
 )
 
 GET_TRACKS_FROM_ALBUM = (
@@ -34,8 +23,10 @@ GET_TRACKS_FROM_ALBUM = (
 
 PLAYLIST_DATA = (
     "SELECT name, id, creator "
-    "FROM Playlist "
-    "where name like '%{}%'"
+    "FROM Playlist P, LikesPlaylist LK "
+    "WHERE P.id=LK.playlist and LK.user = '{}' "
+    "ORDER BY LK.date "
+    "limit 2"
 )
 
 GET_TRACKS_FROM_PLAYLIST = (
@@ -46,61 +37,31 @@ GET_TRACKS_FROM_PLAYLIST = (
     "ORDER BY Tb.addedDate desc"
 )
 
+GET_DAILY = (
+    "SELECT id "
+    "FROM DailySuggestion "
+    "WHERE suggestedfor = '{}'"
+)
 
-@search_bp.route('/', methods=['POST'])
-def search():
+DAILY_DATA = (
+    "SELECT name, id, creator "
+    "FROM Playlist "
+    "where id = '{}'"
+)
+
+
+@welcome_bp.route('/', methods=['POST'])
+def welcome():
     content = request.json
-    content = content['query'].replace("'"," ")
     res = {}
-    res['tracks'] = search_tracks(content)
-    res['artists'] = search_artists(content)
-    res['albums'] = search_albums(content)
-    res['playlists'] = search_playlists(content)
+    res['albums'] = search_albums(content['id'])
+    res['playlists'] = search_playlists(content['id']) 
+    res['daily'] = search_playlists(content['id']) 
     return jsonify(res)
 
-
-def search_tracks(query):
+def search_albums(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute(TRACK_DATA.format(query))
-    tracks = cursor.fetchall()
-
-    tracks_list = []
-    for track in tracks:
-        print(track)
-        tracks_list.append(
-            {
-                "songName": track['title'],
-                "songimg": track['image'],
-                "songArtist": track['name'],
-                "link": track['audio'],
-                "trackTime": track['durationMs']
-            }
-        )
-
-    return tracks_list
-
-
-def search_artists(query):
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute(ARTIST_DATA.format(query))
-    artists = cursor.fetchall()
-
-    artists_list = []
-    for artist in artists:
-        artists_list.append(
-            {
-                "artistid": artist['id'],
-                "artistName": artist['name'],
-                "songimg": artist['image'],
-            }
-        )
-
-    return artists_list
-
-
-def search_albums(query):
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute(ALBUM_DATA.format(query))
+    cursor.execute(ALBUM_DATA.format(id))
     albums = cursor.fetchall()
 
     albums_list = []
@@ -134,9 +95,9 @@ def search_albums(query):
     return albums_list
 
 
-def search_playlists(query):
+def search_playlists(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute(PLAYLIST_DATA.format(query))
+    cursor.execute(PLAYLIST_DATA.format(id))
     playlists = cursor.fetchall()
 
     playlists_list = []
@@ -170,4 +131,41 @@ def search_playlists(query):
         playlists_list.append(temp)
 
     return playlists_list
-    
+
+
+def daily(id):
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute(GET_DAILY.format(id))
+    daily = cursor.fetchone()
+
+    cursor.execute(DAILY_DATA.format(daily['id']))
+    playlist = cursor.fetchone()
+
+    temp = {
+        "title": playlist['name'],
+        "link": playlist['id'],
+        "imgUrl": "/", #manca
+        "hoverColor": "rgb(224, 112, 16)", 
+        "artist": playlist['creator'],
+        "playlistData": []
+    }
+
+    cursor.execute(GET_TRACKS_FROM_PLAYLIST.format(playlist['id']))
+    tracks = cursor.fetchall()
+
+    index = 1
+    for track in tracks:
+        temp['playlistData'].append(
+            {
+                "index": str(index),
+                "songName": track['title'],
+                "songimg": "/", #manca
+                "songArtist":playlist['creator'],
+                "link": track['audio'],
+                "trackTime": track['durationMs'],
+            }
+        )
+        index+=1
+
+    return temp
