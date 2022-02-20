@@ -43,7 +43,7 @@ GET_TRACKS_FROM_PLAYLIST = (
     "FROM Track T,  TrackBelongsToPlaylist Tb, Playlist P "
     "WHERE T.id=Tb.track and Tb.playlist=P.id "
     "and P.id = '{}' "
-    "ORDER BY Tb.addedDate "
+    "ORDER BY Tb.addedDate desc"
 )
 
 
