@@ -1,59 +1,55 @@
-import * as Icon from '../component/icons'
-import React from 'react'
+import * as Icon from "../component/icons";
+import React from "react";
 
 export default {
   MOBILE_SIZE: 640,
-}
+};
 
 export const MENU = [
   {
-    title: 'Ana sayfa',
-    path: '/',
+    title: "Home",
+    path: "/",
     icon: <Icon.Home />,
-    iconSelected: <Icon.HomeActive />
+    iconSelected: <Icon.HomeActive />,
   },
   {
-    title: 'Ara',
-    path: '/search',
+    title: "Search",
+    path: "/search",
     icon: <Icon.Search />,
-    iconSelected: <Icon.SearchActive />
+    iconSelected: <Icon.SearchActive />,
   },
   {
-    title: 'Kitaplığın',
-    path: '/library',
+    title: "Your Library",
+    path: "/library",
     icon: <Icon.Library />,
-    iconSelected: <Icon.LibraryActive />
-  }
-]
+    iconSelected: <Icon.LibraryActive />,
+  },
+];
 
 export const PLAYLISTBTN = [
-    {
-      title: 'Çalma Listesi Oluştur',
-      path: '/',
-      ImgName: 'createPlaylist',
-    },
-    {
-      title: 'Beğenilen Şarkılar',
-      path: '/',
-      ImgName: 'popularSong',
-    }
-]
+  {
+    title: "Create Playlist",
+    path: "/",
+    ImgName: "createPlaylist",
+  },
+  {
+    title: "Liked Songs",
+    path: "/",
+    ImgName: "popularSong",
+  },
+];
 
 export const LIBRARYTABS = [
   {
-    title: 'Çalma Listeleri',
-    path: '/library'
+    title: "Playlists",
+    path: "/library",
   },
   {
-    title: 'Podcast\'ler',
-    path: '/library/podcasts'
+    title: "Artists",
+    path: "/library/artists",
   },
   {
-    title: 'Sanatçılar',
-    path: '/library/artists'
+    title: "Albums",
+    path: "/library/albums",
   },
-  {
-    title: 'Albümler',
-    path: '/library/albums'
-  }
-]
+];
