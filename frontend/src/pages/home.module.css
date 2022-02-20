@@ -1,0 +1,74 @@
+.Home{
+    overflow-y: scroll;
+    background: transparent;
+    position: relative;
+    margin-bottom: 95px;
+    padding-bottom: 16px;
+}
+.HoverBg{
+    height: 332px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,.6)),to(#121212));
+    background-image: linear-gradient(rgba(0,0,0,.6),#121212);
+    -webkit-transition: background 1s ease;
+    transition: background 1s ease;
+
+    background-color: var(--hover-home-bg);
+}
+.Bg{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 60px;
+    bottom: 0px;
+    background: #121212;
+    z-index: -2;
+}
+.Content{
+    padding: 0 32px;
+    padding-top: 24px;
+}
+.Content section:not(:first-child) {
+    margin-top: 32px;
+}
+.SectionTitle {
+    margin-bottom: 22px;
+}
+.SectionTitle h1,
+.SectionTitle h2{
+    margin: 0;
+    color: #fff;
+}
+.SectionCards{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(var(--small-cards-column-width),1fr));
+    row-gap: 16px;
+    column-gap: 24px;
+    max-height: 176px;
+    overflow-y: hidden;
+}
+.SectionCardsMedium{
+    display: grid;
+    grid-column-gap: 24px;
+    column-gap: 24px;
+    grid-template-columns: repeat(auto-fill,minmax(var(--cards-column-width),1fr));
+    overflow-y: hidden;
+    grid-auto-rows: 0;
+    grid-template-rows: 1fr;
+}
+@media screen and (max-width: 640px) {
+    .SectionCardsMedium{
+        grid-gap: 16px;
+        overflow-y: auto;
+        grid-auto-rows: auto;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
+    .Content{
+        padding: 16px;
+        padding-bottom: 100px;
+    }
+}

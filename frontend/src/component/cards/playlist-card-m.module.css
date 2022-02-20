@@ -1,0 +1,75 @@
+.PlaylistCardSBox{
+    position: relative;
+    overflow: hidden;
+}
+.PlaylistCardS{
+    position: relative;
+    padding: 16px;
+    background: #181818;
+    border-radius: 4px;
+    -webkit-transition: background-color .3s ease;
+    transition: background-color .3s ease;
+}
+.ImgBox{
+    position: relative;
+    -webkit-box-shadow: 0 -4px 12px rgb(0 0 0 / 50%);
+    box-shadow: 0 -4px 12px rgb(0 0 0 / 50%);
+}
+.ImgBox img{
+    height: 100%;
+    width: 100%;
+    border-radius: 2px;
+}
+.IconBox{
+    position: absolute;
+    bottom: 94px;
+    right: 24px;
+    opacity: 0;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+    -webkit-box-shadow: 0 8px 8px rgb(0 0 0 / 30%);
+    box-shadow: 0 8px 8px rgb(0 0 0 / 30%);
+    z-index: 2;
+    border-radius: 500px;
+}
+.IconBox div{
+    background-color: #1db954;
+    height: 40px;
+    width: 40px;
+}
+.IconBox button{
+    height: 40px;
+    width: 40px;
+    -webkit-transition: -webkit-transform 33ms cubic-bezier(.3,0,0,1);
+    transition: -webkit-transform 33ms cubic-bezier(.3,0,0,1);
+    transition: transform 33ms cubic-bezier(.3,0,0,1);
+    transition: transform 33ms cubic-bezier(.3,0,0,1),-webkit-transform 33ms cubic-bezier(.3,0,0,1);
+}
+.ActiveIconBox{
+    bottom: 106px;
+    opacity: 1;
+}
+.IconBox button svg{
+    fill: #fff !important;
+}
+.Title{
+    margin-top: 16px;
+    min-height: 62px;
+}
+.Title p{
+    margin: 0px;
+    color: var(--text-white);
+}
+.Title p:last-child{
+    color: rgb(179, 179, 179);
+    margin-top: 4px;
+    -webkit-line-clamp: 2;
+}
+.IconBox button:hover{
+    -webkit-transform: scale(1.06);
+    transform: scale(1.06);
+}
+.PlaylistCardSBox:hover .IconBox{
+    bottom: 106px;
+    opacity: 1;
+}

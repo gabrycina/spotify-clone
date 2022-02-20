@@ -1,0 +1,29 @@
+.musicControl{
+    width: 224px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+.musicControl div button svg{
+    fill: black !important;
+}
+.button{
+    border: 0;
+    background: transparent;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.button svg{
+    font-size: 16px;
+    fill: hsla(0,0%,100%,.7);
+    color: hsla(0,0%,100%,.7);
+}
+.musicControl svg:hover{
+    fill: rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+}

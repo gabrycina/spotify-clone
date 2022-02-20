@@ -1,0 +1,45 @@
+.navBtns{
+    padding: 0 8px;
+}
+.button{
+    border: 0;
+    background-color: var(--sidenav-black);
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    padding: 0px 16px;
+    border-radius: 4px;
+}
+.button svg{
+    color: var(--text-gray);
+}
+.button p{
+    color: var(--text-gray);
+    margin: 0;
+    margin-left: 16px;
+}
+.button:hover svg,
+.button:hover p{
+    color: var(--text-white);
+}
+@media screen and (max-width: 640px) {
+    .navBtns{
+        display: flex;
+        justify-content: space-around;
+        padding: 4px 8px;
+    }
+    .button{
+        background-color: #181818;
+        flex-direction: column;
+        height: auto;
+    }
+    .button svg{
+        font-size: 21px;
+    }
+    .button p{
+        font-weight: 400;
+        font-size: 11px;
+        margin-left: 0px;
+    }
+}

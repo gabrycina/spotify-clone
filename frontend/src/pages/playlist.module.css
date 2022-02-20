@@ -1,0 +1,152 @@
+.PlaylistPage{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: transparent;
+    position: relative;
+    margin-bottom: 95px;
+    padding-bottom: 16px;
+    color: var(--text-white);
+}
+.gradientBg{
+    height: 340px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    background: -webkit-gradient(linear,left top,left bottom,from(transparent),to(rgba(0,0,0,.5)));
+    background: linear-gradient(transparent,rgba(0,0,0,.5));
+    -webkit-transition: background 1s ease;
+    transition: background 1s ease;
+
+    background-color: var(--hover-home-bg);
+}
+.gradientBgSoft{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 340px;
+    height: 240px;
+    z-index: -2;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,.6)),to(var(--main-background)));
+    background-image: linear-gradient(rgba(0,0,0,.6),var(--main-background));
+
+    background-color: var(--hover-home-bg);
+}
+.Bg{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0px;
+    z-index: -3;
+    background-color: var(--main-background);
+}
+
+.PlaylistIcons{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 24px 32px;
+    position: relative;
+}
+.PlaylistIcons button{
+    border: 0;
+    background-color: transparent;
+}
+.PlaylistIcons div{
+    margin-right: 32px;
+    width: 56px;
+    height: 56px;
+    border-radius: 28px;
+    background-color: #1db954;
+}
+.PlaylistIcons div button{
+    width: 56px;
+    height: 56px;
+}
+.PlaylistIcons div button svg{
+    font-size: 28px;
+    fill: #fff !important;
+}
+.PlaylistIcons button svg{
+    font-size: 28px;
+}
+.moreIcon{
+    margin-left: 24px;
+    font-size: 28px;
+    color: hsla(0,0%,100%,.6);
+}
+
+.PlaylistSongs{
+    padding: 0 32px;
+}
+.ListHead{
+    margin: 0 20px 16px 40px;
+    padding: 8px 16px;
+    color: #b3b3b3;
+    border-bottom: 1px solid hsla(0,0%,100%,.1);
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: 16px 1fr 16px;
+}
+.ListHead p:nth-child(1){
+    font-size: 18px;
+}
+.ListHead p{
+    margin: 0px;
+    letter-spacing: .03em;
+}
+.ListHead svg{
+    fill: #b3b3b3;
+    font-size: 16px;
+}
+.SongBtn{
+    display: block;
+    width: 100%;
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.SongBtn p{
+    margin: 0;
+    font-weight: 400;
+}
+.SongBtn img{
+    width: 36px;
+    height: 36px;
+}
+.SongBtn span p:last-child,
+.SongBtn p:last-child{
+    color: rgb(179, 179, 179);
+}
+@media screen and (max-width: 640px) {
+    .PlaylistPage{
+        margin-bottom: 180px;
+    }
+    .PlaylistIcons{
+        padding: 20px 16px;
+    }
+    .PlaylistIcons div{
+        width: 38px;
+        height: 38px;
+        margin-right: 24px;
+    }
+    .PlaylistIcons div button{
+        width: 38px;
+        height: 38px;
+    }
+    .PlaylistIcons div button svg{
+        font-size: 21px;
+    }
+    .ListHead{
+        padding: 8px;
+        margin: 0 16px 8px 16px;
+        grid-template-columns: 16px 1fr 26px;
+    }
+    .PlaylistSongs{
+        padding: 0px 16px;
+    }
+    .SongBtn{
+        padding: 0;
+    }
+}
