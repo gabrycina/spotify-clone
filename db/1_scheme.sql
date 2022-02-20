@@ -22,7 +22,8 @@ create table Artist(
     name varchar(30) not null unique, 
     isVerified int not null, 
     nFollowers int default 0, 
-    isBand int not null
+    isBand int not null,
+    image varchar(200) default '/'
 );
 
 create table ArtistBelongsToBand(

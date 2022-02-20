@@ -4,7 +4,9 @@ from __init__ import mysql
 import MySQLdb.cursors
 
 URL_GET_TRACK = 'https://api.spotify.com/v1/tracks/{}' # GET
-TOKEN = 'BQDqipyHomBg3DZ-uj0bEj96uiIsTK6QoX8CXQxvl4tv7w7cGZA2j9gGJAdAwq6cFxExRQgQVNN4e_Lex7wgVJX8aUuvXCDhvX3kJYnr-2nL6j0nKDvkOulYVWENrY2wr6wuxskAlVkToZqvb5u23juaA7wevRU'
+URL_GET_ARTIST = '	https://api.spotify.com/v1/artists/{}' #GET
+
+TOKEN = 'BQAy5cW0yik4sPLbvsS0uAIsKcfzIXQhpHRpU-v9tM2pHmkC0sAbAksBQqD6vgbqTZbwkjWjlfy0diJFg-Ktj4c12zsX6sNXdVY8ttyJttfpKUI5V6JaRwcz-ChfS7eWpu5MywgDrlsPnem5LtGA3U1EmkKo6UA'
 
 preview_bp = Blueprint('preview', __name__)
 
@@ -21,10 +23,39 @@ def create_preview():
     mysql.connection.commit()
     return "<h2> Completato </h2>"
 
+
+@preview_bp.route('/artist/')
+def create_artist():
+    rick_roll = 'https://i.scdn.co/image/ab67616d0000b2734b37560bb0fb287011ae6a60'
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT id FROM Artist WHERE image='/'")
+    artists = cursor.fetchall()
+    for artist in artists:
+        image_url = get_image_artist(artist['id'])
+        if image_url==None: image_url = rick_roll
+        cursor.execute(f"UPDATE Artist SET image='{image_url}' WHERE id='{artist['id']}'")
+    mysql.connection.commit()
+    return "<h2> Completato </h2>"
+
+
+# asking spotify api fro image_url
+def get_image_artist(artist_id):
+    response = requests.get(
+        URL_GET_ARTIST.format(artist_id),
+        headers = {
+            'Authorization' : 'Bearer {}'.format(TOKEN)
+        }
+    ).json()
+    for image in response['images']:
+        print(image['url'])
+        return image['url']
+    return None
+
+
 # asking spotify api for preview_url
 def get_preview_url(track_id):
     response = requests.get(
-        URL_GET_TRACK.format(track_id),
+        URL_GET_ARTIST.format(track_id),
         headers = {
             'Authorization' : 'Bearer {}'.format(TOKEN)
         }
