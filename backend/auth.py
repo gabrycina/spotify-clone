@@ -29,7 +29,22 @@ def register():
         return jsonify(error = f"'{email}' already exists !")
     else:
         id = ''.join(random.choices(string.ascii_lowercase + string.digits, k = 22))
-        cursor.execute(f"INSERT INTO User (id, username, email, password) VALUES ('{id}', '{username}', '{email}', '{password}'")
+        # aggiunta di un utente
+        cursor.execute(f"INSERT INTO User (id, username, email, password) VALUES('{id}', '{username}', '{email}', '{password}'")
+        # creazione playlist dailysuggestion
+        cursor.execute(f"INSERT INTO DailySuggestion (id,suggestedFor) VALUES('{id[::-1]}','{id}')")
+        # popolazione di dailysuggestion
+        cursor.execute(f'''
+           insert into TrackBelongsToPlaylist (track,playlist,addedDate) values 
+            ('00Bjvg4x7YpjFfwoAuRxmk','{id[::-1]}',NOW()),
+            ('01cQH1jlneRfdx0WEZXdl3','{id[::-1]}',NOW()),
+            ('02KiSb9pYNhbT0zzm1RASE','{id[::-1]}',NOW()),
+            ('1cQygsHlGII3a0H6DmUpA2','{id[::-1]}',NOW()),
+            ('2C6WXnmZ66tHhHlnvwePiK','{id[::-1]}',NOW()),
+            ('2VdT56BGpdqNHUgOe1j5vc','{id[::-1]}',NOW()),
+            ('3SZh4ay5IES2q3BDmoo0Ir','{id[::-1]}',NOW()),
+            ('3xyQawzvHeSMGowhomelrY','{id[::-1]}',NOW()),
+        ''')
         mysql.connection.commit()
         return jsonify(id = id)
 
