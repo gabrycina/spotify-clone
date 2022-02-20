@@ -106,7 +106,7 @@ def search_playlists(id):
         temp = {
             "title": playlist['name'],
             "link": playlist['id'],
-            "imgUrl": "/", #manca
+            "imgUrl": "https://i.scdn.co/image/ab67616d0000b2734b37560bb0fb287011ae6a60",
             "hoverColor": "rgb(224, 112, 16)", 
             "artist": playlist['creator'],
             "playlistData": []
@@ -121,7 +121,7 @@ def search_playlists(id):
                 {
                     "index": str(index),
                     "songName": track['title'],
-                    "songimg": "/", #manca
+                    "songimg": "https://i.scdn.co/image/ab67616d0000b2734b37560bb0fb287011ae6a60",
                     "songArtist":playlist['creator'],
                     "link": track['audio'],
                     "trackTime": track['durationMs'],
@@ -145,7 +145,7 @@ def daily(id):
     temp = {
         "title": playlist['name'],
         "link": playlist['id'],
-        "imgUrl": "/", #manca
+        "imgUrl": "https://i.scdn.co/image/ab67616d0000b2734b37560bb0fb287011ae6a60",
         "hoverColor": "rgb(224, 112, 16)", 
         "artist": "Spotty",
         "playlistData": []
@@ -160,7 +160,7 @@ def daily(id):
             {
                 "index": str(index),
                 "songName": track['title'],
-                "songimg": "/", #manca
+                "songimg": "https://i.scdn.co/image/ab67616d0000b2734b37560bb0fb287011ae6a60",
                 "songArtist": playlist['creator'],
                 "link": track['audio'],
                 "trackTime": track['durationMs'],
