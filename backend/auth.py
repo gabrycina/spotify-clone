@@ -36,14 +36,14 @@ def register():
 
 @auth_bp.route('/login/', methods=['POST'])
 def login():
-    username = request.form['username']
+    username = request.form['email']
     password = request.form['password']
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute(f"SELECT id FROM User WHERE username = '{username}' and password = '{password}'")
-    id = cursor.fetchone()
-
-    if id:
-        return jsonify(id=id)
+    cursor.execute(f"SELECT id,username FROM User WHERE email = '{email}' and password = '{password}'")
+    row = cursor.fetchone()
+ 
+    if row['id']:
+        return jsonify(id = row['id'], username = row['username'])
     else:
         return jsonify(error = "Incorrect email or password")
