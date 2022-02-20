@@ -1,5 +1,5 @@
 import { PLAYLIST } from "../data/index";
-import { PLAYPAUSE, CHANGETRACK } from "../actions/index";
+import { PLAYPAUSE, CHANGETRACK, LOGIN, LOGOUT } from "../actions/index";
 
 const INITIAL_STATE = {
   trackData: {
@@ -7,9 +7,15 @@ const INITIAL_STATE = {
     track: `${PLAYLIST[0].playlistData[0].link}`,
     trackName: `${PLAYLIST[0].playlistData[0].songName}`,
     trackImg: `${PLAYLIST[0].playlistData[0].songimg}`,
-    trackArtist: `${PLAYLIST[0].playlistData[0].songArtist}`
+    trackArtist: `${PLAYLIST[0].playlistData[0].songArtist}`,
   },
-  isPlaying: false
+  user: {
+    id: "9fPfGMn2IJJZG1Sy0J1t03",
+    email: "rickroll@me.com",
+    username: "Rick Astley",
+    loggedIn: true,
+  },
+  isPlaying: false,
 };
 
 export const reducer = (state = INITIAL_STATE, action) => {
@@ -17,7 +23,7 @@ export const reducer = (state = INITIAL_STATE, action) => {
     case PLAYPAUSE:
       return {
         ...state,
-        isPlaying: action.payload
+        isPlaying: action.payload,
       };
     case CHANGETRACK:
       return {
@@ -35,11 +41,24 @@ export const reducer = (state = INITIAL_STATE, action) => {
             PLAYLIST[action.payload[0]].playlistData[action.payload[1]].songimg
           }`,
           trackArtist: `${
-            PLAYLIST[action.payload[0]].playlistData[action.payload[1]].songArtist
-          }`
-        }
+            PLAYLIST[action.payload[0]].playlistData[action.payload[1]]
+              .songArtist
+          }`,
+        },
+      };
+    case LOGIN:
+      state.user = action.payload;
+      return {
+        ...state,
+      };
+    case LOGOUT:
+      state.user = null;
+      return {
+        ...state,
       };
     default:
       return state;
   }
 };
+
+export const selectUser = (state) => state.user;

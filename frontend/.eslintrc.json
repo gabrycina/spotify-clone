@@ -15,7 +15,8 @@
         "react/display-name": 0,
         "jsx-a11y/media-has-caption": 0,
         "no-unused-vars": 0,
-        "react/no-unescaped-entities": 0
+        "react/no-unescaped-entities": 0,
+        "no-constant-condition": 0
 
     },
     "plugins": ["react", "import", "jsx-a11y"],

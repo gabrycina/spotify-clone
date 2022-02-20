@@ -34,64 +34,74 @@ function PlaylistPage(props) {
 
       <Topnav />
 
-      {PLAYLIST.map((item) => {
-        if (item.link == path) {
-          return (
-            <div
-              key={item.title}
-              onLoad={() => {
-                changeBg(item.hoverColor);
-                setPlaylistIndex(PLAYLIST.indexOf(item));
-              }}
-            >
-              <PlaylistDetails data={item} />
+      {
+        //make request with path
+        //receive json list of songs + playlist details
+        //show it with playlistDetails component
 
-              <div className={styles.PlaylistIcons}>
-                <button
-                  onClick={() => props.changeTrack([PLAYLIST.indexOf(item), 0])}
-                >
-                  <PlayButton isthisplay={isthisplay} />
-                </button>
-                <IconButton
-                  icon={<Icons.Like />}
-                  activeicon={<Icons.LikeActive />}
-                />
-                <Icons.More className={styles.moreIcon} />
-              </div>
+        PLAYLIST.map((item) => {
+          console.log(path);
+          console.log(item.link);
+          if (item.link == path) {
+            return (
+              <div
+                key={item.title}
+                onLoad={() => {
+                  changeBg(item.hoverColor);
+                  setPlaylistIndex(PLAYLIST.indexOf(item));
+                }}
+              >
+                <PlaylistDetails data={item} />
 
-              <div className={styles.ListHead}>
-                <TextRegularM>#</TextRegularM>
-                <TextRegularM>BAŞLIK</TextRegularM>
-                <Icons.Time />
-              </div>
+                <div className={styles.PlaylistIcons}>
+                  <button
+                    onClick={() =>
+                      props.changeTrack([PLAYLIST.indexOf(item), 0])
+                    }
+                  >
+                    <PlayButton isthisplay={isthisplay} />
+                  </button>
+                  <IconButton
+                    icon={<Icons.Like />}
+                    activeicon={<Icons.LikeActive />}
+                  />
+                  <Icons.More className={styles.moreIcon} />
+                </div>
 
-              <div className={styles.PlaylistSongs}>
-                {item.playlistData.map((song) => {
-                  return (
-                    <button
-                      key={song.index}
-                      onClick={() =>
-                        props.changeTrack([
-                          PLAYLIST.indexOf(item),
-                          item.playlistData.indexOf(song),
-                        ])
-                      }
-                      className={styles.SongBtn}
-                    >
-                      <PlaylistTrack
-                        data={{
-                          listType: item.type,
-                          song: song,
-                        }}
-                      />
-                    </button>
-                  );
-                })}
+                <div className={styles.ListHead}>
+                  <TextRegularM>#</TextRegularM>
+                  <TextRegularM>BAŞLIK</TextRegularM>
+                  <Icons.Time />
+                </div>
+
+                <div className={styles.PlaylistSongs}>
+                  {item.playlistData.map((song) => {
+                    return (
+                      <button
+                        key={song.index}
+                        onClick={() =>
+                          props.changeTrack([
+                            PLAYLIST.indexOf(item),
+                            item.playlistData.indexOf(song),
+                          ])
+                        }
+                        className={styles.SongBtn}
+                      >
+                        <PlaylistTrack
+                          data={{
+                            listType: item.type,
+                            song: song,
+                          }}
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          );
-        }
-      })}
+            );
+          }
+        })
+      }
     </div>
   );
 }
