@@ -22,9 +22,10 @@ GET_TRACKS_FROM_ALBUM = (
 )
 
 PLAYLIST_DATA = (
-    "SELECT name, id, creator "
-    "FROM Playlist P, LikesPlaylist LK "
-    "WHERE P.id=LK.playlist and LK.user = '{}' "
+    "SELECT P.name, P.id, U.username as creator "
+    "FROM Playlist P, LikesPlaylist LK, User U "
+    "WHERE P.id=LK.playlist and U.id=P.creator "
+    "and LK.user = '{}' "
     "ORDER BY LK.date "
     "limit 2"
 )
@@ -56,7 +57,7 @@ def welcome():
     res = {}
     res['albums'] = search_albums(content['id'])
     res['playlists'] = search_playlists(content['id']) 
-    res['daily'] = search_playlists(content['id']) 
+    res['daily'] = daily(content['id']) 
     return jsonify(res)
 
 def search_albums(id):
@@ -134,7 +135,6 @@ def search_playlists(id):
 
 
 def daily(id):
-
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute(GET_DAILY.format(id))
     daily = cursor.fetchone()
@@ -147,7 +147,7 @@ def daily(id):
         "link": playlist['id'],
         "imgUrl": "/", #manca
         "hoverColor": "rgb(224, 112, 16)", 
-        "artist": playlist['creator'],
+        "artist": "Spotty",
         "playlistData": []
     }
 
@@ -161,7 +161,7 @@ def daily(id):
                 "index": str(index),
                 "songName": track['title'],
                 "songimg": "/", #manca
-                "songArtist":playlist['creator'],
+                "songArtist": playlist['creator'],
                 "link": track['audio'],
                 "trackTime": track['durationMs'],
             }

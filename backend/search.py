@@ -33,9 +33,10 @@ GET_TRACKS_FROM_ALBUM = (
 )
 
 PLAYLIST_DATA = (
-    "SELECT name, id, creator "
-    "FROM Playlist "
-    "where name like '%{}%'"
+    "SELECT P.name, P.id, U.username as creator "
+    "FROM Playlist P, User U "
+    "WHERE U.id=P.creator "
+    "and name like '%{}%'"
 )
 
 GET_TRACKS_FROM_PLAYLIST = (
@@ -43,7 +44,7 @@ GET_TRACKS_FROM_PLAYLIST = (
     "FROM Track T,  TrackBelongsToPlaylist Tb, Playlist P "
     "WHERE T.id=Tb.track and Tb.playlist=P.id "
     "and P.id = '{}' "
-    "ORDER BY Tb.addedDate desc"
+    "ORDER BY Tb.addedDate"
 )
 
 
