@@ -30,9 +30,11 @@ function PlaylistTab() {
     <div>
       <TitleM>Playlists</TitleM>
       <div className={styles.Grid}>
+        {/* 
+        //todo: use api
         {PLAYLIST.filter((item) => item.type == "playlist").map((item) => {
           return <PlaylistCardM key={item.title} data={item} />;
-        })}
+        })} */}
       </div>
     </div>
   );
@@ -51,9 +53,11 @@ function AlbumTab() {
     <div>
       <TitleM>Albums</TitleM>
       <div className={styles.Grid}>
+        {/* 
+        //todo: use api
         {PLAYLIST.filter((item) => item.type == "albüm").map((item) => {
           return <PlaylistCardM key={item.title} data={item} />;
-        })}
+        })} */}
       </div>
     </div>
   );

@@ -12,32 +12,32 @@ function Playlist() {
   return (
     <div className={styles.Playlist}>
       <div>
-        {
-          //TODO use requested playlists
-          PLAYLISTBTN.map((playlist) => {
-            return (
-              <PlaylistButton
-                href={playlist.path}
-                ImgName={playlist.ImgName}
-                key={playlist.title}
-              >
-                {playlist.title}
-              </PlaylistButton>
-            );
-          })
-        }
+        {PLAYLISTBTN.map((playlist) => {
+          return (
+            <PlaylistButton
+              href={playlist.path}
+              ImgName={playlist.ImgName}
+              key={playlist.title}
+            >
+              {playlist.title}
+            </PlaylistButton>
+          );
+        })}
       </div>
 
       <hr className={styles.hr} />
 
       <div>
+        {/* 
+        todo: USE REQUESTED PLAYLIST HERE
+
         {PLAYLIST.filter((item) => item.type === "playlist").map((list) => {
           return (
             <Link to={`/playlist/${list.link}`} key={list.title}>
               <TextRegularM>{list.title}</TextRegularM>
             </Link>
           );
-        })}
+        })} */}
       </div>
     </div>
   );

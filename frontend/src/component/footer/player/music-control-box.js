@@ -9,23 +9,25 @@ import styles from "./music-control-box.module.css";
 
 function MusicControlBox(props) {
   function decreaseIndex() {
-    if (props.trackData.trackKey[1] != 0) {
-      props.changeTrack([
-        props.trackData.trackKey[0],
-        props.trackData.trackKey[1] - 1,
-      ]);
-    }
+    //todo
+    // if (props.trackData.trackKey[1] != 0) {
+    //   props.changeTrack([
+    //     props.trackData.trackKey[0],
+    //     props.trackData.trackKey[1] - 1,
+    //   ]);
+    // }
   }
   function increaseIndex() {
-    if (
-      props.trackData.trackKey[1] !=
-      PLAYLIST[props.trackData.trackKey[0]].playlistData.length - 1
-    ) {
-      props.changeTrack([
-        props.trackData.trackKey[0],
-        parseInt(props.trackData.trackKey[1]) + 1,
-      ]);
-    }
+    //TODO
+    // if (
+    //   props.trackData.trackKey[1] !=
+    //   PLAYLIST[props.trackData.trackKey[0]].playlistData.length - 1
+    // ) {
+    //   props.changeTrack([
+    //     props.trackData.trackKey[0],
+    //     parseInt(props.trackData.trackKey[1]) + 1,
+    //   ]);
+    // }
   }
 
   return (

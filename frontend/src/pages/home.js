@@ -24,9 +24,9 @@ function Home() {
           <div className={styles.SectionCards}>
             {
               //TODO switch to API request
-              PLAYLIST.map((item) => {
-                return <PlaylistCardS key={item.title} data={item} />;
-              })
+              // PLAYLIST.map((item) => {
+              //   return <PlaylistCardS key={item.title} data={item} />;
+              // })
             }
           </div>
         </section>
@@ -39,9 +39,9 @@ function Home() {
           <div className={styles.SectionCardsMedium}>
             {
               //TODO switch to API request
-              PLAYLIST.slice(0, 6).map((item) => {
-                return <PlaylistCardM key={item.title} data={item} />;
-              })
+              // PLAYLIST.slice(0, 6).map((item) => {
+              //   return <PlaylistCardM key={item.title} data={item} />;
+              // })
             }
           </div>
         </section>

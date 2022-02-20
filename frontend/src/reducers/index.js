@@ -11,10 +11,12 @@ import { bindActionCreators } from "redux";
 const INITIAL_STATE = {
   trackData: {
     trackKey: [0, 0],
-    track: `${PLAYLIST[0].playlistData[0].link}`,
-    trackName: `${PLAYLIST[0].playlistData[0].songName}`,
-    trackImg: `${PLAYLIST[0].playlistData[0].songimg}`,
-    trackArtist: `${PLAYLIST[0].playlistData[0].songArtist}`,
+    track:
+      "https://p.scdn.co/mp3-preview/410d0231ba6094d229d0c32675d3257e6946e608?cid=774b29d4f13844c495f206cafdad9c86",
+    trackName: "Courageous",
+    trackImg:
+      "https://i.scdn.co/image/ab67616d0000b2734b37560bb0fb287011ae6a60",
+    trackArtist: "Rick Astley",
   },
   user: {
     id: "9fPfGMn2IJJZG1Sy0J1t03",
