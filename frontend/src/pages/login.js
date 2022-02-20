@@ -5,15 +5,11 @@ import { Link } from "react-router-dom";
 import { login } from "../actions";
 
 const Login = () => {
-  var error = "";
+  var [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const dipsatch = useDispatch();
-  let mediumPassword = new RegExp(
-    "((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))"
-  );
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -24,12 +20,15 @@ const Login = () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: email, password: hashedPsw }),
+      mode: "cors",
     };
 
-    const res = await fetch("http://127.0.0.1:5000/auth/login", requestOptions);
+    const res = await fetch(
+      "http://127.0.0.1:5000/auth/login/",
+      requestOptions
+    ).then((res) => res.json());
 
-    // eslint-disable-next-line no-prototype-builtins
-    if (res.hasOwnProperty("id")) {
+    if (res.id) {
       var id = res.id;
       var username = res.username;
 
@@ -43,7 +42,8 @@ const Login = () => {
         })
       );
     } else {
-      error = res.error;
+      setError(res.error);
+      console.log(error);
     }
   };
 
@@ -54,6 +54,7 @@ const Login = () => {
           <img src={logo} width="200em" />
         </p>
       </nav>
+      <p className="font-bold text-center text-red-700 mt-10">{error}</p>
       <main className="mx-auto my-12 flex flex-col items-center">
         <div className="md:w-2/12 lg:w-3/12">
           <form onSubmit={(e) => handleSubmit(e)}>
@@ -143,7 +144,6 @@ const Login = () => {
                 Login
               </button>
             </div>
-            <label className="text-red">{error}</label>
           </form>
           <div>
             <p className="font-bold text-center text-black">
