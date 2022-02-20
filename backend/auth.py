@@ -44,6 +44,6 @@ def login():
     id = cursor.fetchone()
 
     if id:
-        return jsonify(id)
+        return jsonify(id=id)
     else:
         return jsonify(error = "Incorrect email or password")
