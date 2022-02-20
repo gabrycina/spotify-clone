@@ -25,7 +25,7 @@ GET_LIKED_TRACK = (
 )
 
 GET_SIMILAR_TRACK = (
-    "select t1, t2 "
+    "select track1 as t1, track2 as t2 "
     "from Similarity "
     "where track1='{}' or track2='{}' "
     "order by amount "
@@ -93,4 +93,7 @@ def update_suggester():
             t = random.choice(suggested)
             suggested.remove(t)
             cursor.execute(INSERT_TRACK.format(t, user['daily']))
+    
+    mysql.connection.commit()
+    return "completed"
 
