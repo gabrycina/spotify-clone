@@ -29,7 +29,7 @@ def register():
         return jsonify(error = f"'{email}' already exists !")
     else:
         id = ''.join(random.choices(string.ascii_lowercase + string.digits, k = 22))
-        cursor.execute(f"INSERT INTO User VALUES ('{id}', , , '{username}', '{email}', '{password}'), NULL")
+        cursor.execute(f"INSERT INTO User (id, username, email, password) VALUES ('{id}', '{username}', '{email}', '{password}'")
         mysql.connection.commit()
         return jsonify(id = id)
 
