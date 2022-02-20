@@ -160,7 +160,7 @@ def search_playlists(query):
                     "index": str(index),
                     "songName": track['title'],
                     "songimg": track['image'],
-                    "songArtist":playlist['creator'],
+                    "songArtist": playlist['creator'],
                     "link": track['audio'],
                     "trackTime": track['durationMs'],
                 }
