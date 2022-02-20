@@ -5,26 +5,46 @@ import { Link } from "react-router-dom";
 import { login } from "../actions";
 
 const Login = () => {
+  var error = "";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const dipsatch = useDispatch();
+  let mediumPassword = new RegExp(
+    "((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))"
+  );
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    var id = "adhdanipwdpnapw73";
-    var username = "oleole";
+    var sha256 = require("js-sha256");
+    var hashedPsw = sha256(password);
 
-    dipsatch(
-      login({
-        id: id,
-        email: email,
-        password: password,
-        username: username,
-        loggedIn: true,
-      })
-    );
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email, password: hashedPsw }),
+    };
+
+    const res = await fetch("http://127.0.0.1:5000/auth/login", requestOptions);
+
+    // eslint-disable-next-line no-prototype-builtins
+    if (res.hasOwnProperty("id")) {
+      var id = res.id;
+      var username = res.username;
+
+      dipsatch(
+        login({
+          id: id,
+          email: email,
+          password: password,
+          username: username,
+          loggedIn: true,
+        })
+      );
+    } else {
+      error = res.error;
+    }
   };
 
   return (
@@ -123,6 +143,7 @@ const Login = () => {
                 Login
               </button>
             </div>
+            <label className="text-red">{error}</label>
           </form>
           <div>
             <p className="font-bold text-center text-black">
