@@ -18,7 +18,7 @@ ARTIST_DATA = (
 )
 
 ALBUM_DATA = (
-    "SELECT AL.title, AL.id, AL.image, A.name "
+    "SELECT AL.title, AL.id, AL.image, max(A.name) as name "
     "FROM Album AL, Making M, Artist A "
     "WHERE AL.id=M.album and M.artist=A.id "
     "and AL.title like '%{}%' "
