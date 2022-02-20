@@ -1,16 +1,6 @@
-from flask import Flask,jsonify
-from flask_mysqldb import MySQL
-
-app = Flask(__name__)
+from __init__ import app
+from preview import preview_bp
 
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'spotty'
-
-mysql = MySQL(app)
-
-
-if __name__ == '__main__':
-    app.run()
+app.register_blueprint(preview_bp,url_prefix='/preview')
+app.run()

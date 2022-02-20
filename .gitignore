@@ -13,6 +13,7 @@ frontend/node_modules/
 
 # production
 /build
+/__pycache__
 
 # misc
 .DS_Store
