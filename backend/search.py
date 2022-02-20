@@ -67,7 +67,6 @@ def search_tracks(query):
 
     tracks_list = []
     for track in tracks:
-        print(track)
         tracks_list.append(
             {
                 "songName": track['title'],

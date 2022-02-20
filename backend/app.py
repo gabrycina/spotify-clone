@@ -7,6 +7,7 @@ from welcome import welcome_bp
 from like import like_bp
 from listen import listen_bp
 from recently_played import recently_played_bp
+from top_categories import top_categories_bp
 
 
 app.register_blueprint(preview_bp, url_prefix='/preview')
@@ -17,5 +18,6 @@ app.register_blueprint(like_bp, url_prefix='/like')
 app.register_blueprint(welcome_bp, url_prefix='/welcome')
 app.register_blueprint(listen_bp,url_prefix='/listen')
 app.register_blueprint(recently_played_bp,url_prefix='/recently_played')
+app.register_blueprint(top_categories_bp,url_prefix='/top_categories')
 
 app.run()
