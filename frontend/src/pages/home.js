@@ -25,7 +25,6 @@ function Home() {
             {
               //TODO switch to API request
               PLAYLIST.map((item) => {
-                console.log(item);
                 return <PlaylistCardS key={item.title} data={item} />;
               })
             }

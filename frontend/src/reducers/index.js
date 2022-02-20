@@ -1,5 +1,12 @@
 import { PLAYLIST } from "../data/index";
-import { PLAYPAUSE, CHANGETRACK, LOGIN, LOGOUT } from "../actions/index";
+import {
+  PLAYPAUSE,
+  CHANGETRACK,
+  LOGIN,
+  LOGOUT,
+  SEARCH,
+} from "../actions/index";
+import { bindActionCreators } from "redux";
 
 const INITIAL_STATE = {
   trackData: {
@@ -16,35 +23,29 @@ const INITIAL_STATE = {
     loggedIn: true,
   },
   isPlaying: false,
+  key: "",
 };
 
 export const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case SEARCH:
+      state.key = action.payload;
+      return {
+        ...state,
+      };
     case PLAYPAUSE:
       return {
         ...state,
         isPlaying: action.payload,
       };
     case CHANGETRACK:
+      state.trackData.trackKey = action.payload.index;
+      state.trackData.track = action.payload.link;
+      state.trackData.trackName = action.payload.songName;
+      state.trackData.trackImg = action.payload.songimg;
+      state.trackData.trackArtist = action.payload.artist;
       return {
         ...state,
-        trackData: {
-          ...state.trackData,
-          trackKey: action.payload,
-          track: `${
-            PLAYLIST[action.payload[0]].playlistData[action.payload[1]].link
-          }`,
-          trackName: `${
-            PLAYLIST[action.payload[0]].playlistData[action.payload[1]].songName
-          }`,
-          trackImg: `${
-            PLAYLIST[action.payload[0]].playlistData[action.payload[1]].songimg
-          }`,
-          trackArtist: `${
-            PLAYLIST[action.payload[0]].playlistData[action.payload[1]]
-              .songArtist
-          }`,
-        },
       };
     case LOGIN:
       state.user = action.payload;
@@ -62,3 +63,4 @@ export const reducer = (state = INITIAL_STATE, action) => {
 };
 
 export const selectUser = (state) => state.user;
+export const selectKey = (state) => state.key;

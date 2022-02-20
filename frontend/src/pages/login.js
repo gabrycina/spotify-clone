@@ -43,7 +43,6 @@ const Login = () => {
       );
     } else {
       setError(res.error);
-      console.log(error);
     }
   };
 

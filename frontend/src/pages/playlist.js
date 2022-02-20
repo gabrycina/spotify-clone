@@ -40,8 +40,6 @@ function PlaylistPage(props) {
         //show it with playlistDetails component
 
         PLAYLIST.map((item) => {
-          console.log(path);
-          console.log(item.link);
           if (item.link == path) {
             return (
               <div

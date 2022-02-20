@@ -6,11 +6,11 @@ import TextBoldL from "../text/text-bold-l";
 import TextRegularM from "../text/text-regular-m";
 import PlayButton from "../buttons/play-button";
 import { useDispatch } from "react-redux";
+import styles from "./track-card.module.css";
 
-import styles from "./playlist-card-m.module.css";
-
-function PlaylistCardM(props) {
+function TrackCard(props) {
   const [isthisplay, setIsthisPlay] = useState(false);
+
   const dispatch = useDispatch();
 
   const handleChangeTrack = (track) => {
@@ -22,20 +22,20 @@ function PlaylistCardM(props) {
   });
 
   return (
-    <div className={styles.PlaylistCardSBox}>
+    <div className={styles.TrackCardBox}>
       <Link to={`/playlist/${props.data.link}`}>
-        <div className={styles.PlaylistCardS}>
+        <div className={styles.TrackCard}>
           <div className={styles.ImgBox}>
-            <img src={props.data.imgUrl} alt={props.data.title} />
+            <img src={props.data.songimg} alt={props.data.title} />
           </div>
           <div className={styles.Title}>
-            <TextBoldL>{props.data.title}</TextBoldL>
-            <TextRegularM>{props.data.artist}</TextRegularM>
+            <TextBoldL>{props.data.songName}</TextBoldL>
+            <TextRegularM>{props.data.songArtist}</TextRegularM>
           </div>
         </div>
       </Link>
       <div
-        onClick={() => handleChangeTrack(props.data.playlistData[0])}
+        onClick={() => () => handleChangeTrack(props.data.playlistData[0])}
         className={`${styles.IconBox} ${
           isthisplay && props.isPlaying ? styles.ActiveIconBox : ""
         }`}
@@ -53,4 +53,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { changeTrack })(PlaylistCardM);
+export default connect(mapStateToProps, { changeTrack })(TrackCard);
