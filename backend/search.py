@@ -40,9 +40,9 @@ PLAYLIST_DATA = (
 )
 
 GET_TRACKS_FROM_PLAYLIST = (
-    "SELECT T.title, T.audio, T.durationMs "
-    "FROM Track T,  TrackBelongsToPlaylist Tb, Playlist P "
-    "WHERE T.id=Tb.track and Tb.playlist=P.id "
+    "SELECT T.title, T.audio, T.durationMs, A.image "
+    "FROM Track T,  TrackBelongsToPlaylist Tb, Playlist P, Album A, TrackBelongsToAlbum Ta "
+    "WHERE T.id=Tb.track and Tb.playlist=P.id and T.id=Ta.track and Ta.album=A.id "
     "and P.id = '{}' "
     "ORDER BY Tb.addedDate"
 )
@@ -153,13 +153,13 @@ def search_playlists(query):
         cursor.execute(GET_TRACKS_FROM_PLAYLIST.format(playlist['id']))
         tracks = cursor.fetchall()
 
-        index = 1
+        index = 0
         for track in tracks:
             temp['playlistData'].append(
                 {
                     "index": str(index),
                     "songName": track['title'],
-                    "songimg": "https://i.scdn.co/image/ab67616d0000b2734b37560bb0fb287011ae6a60",
+                    "songimg": track['image'],
                     "songArtist":playlist['creator'],
                     "link": track['audio'],
                     "trackTime": track['durationMs'],
