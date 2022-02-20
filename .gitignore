@@ -13,7 +13,8 @@ frontend/node_modules/
 
 # production
 /build
-/__pycache__
+backend/__pycache__/
+backend/__init__.pyc
 
 # misc
 .DS_Store
@@ -25,3 +26,4 @@ frontend/node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
