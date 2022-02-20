@@ -9,16 +9,17 @@ auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/register/', methods=['POST'])
 def register():
-    username = request.form['username']
-    password = request.form['password']
-    email = request.form['email']
+    content = request.json
+    username = content['username'].replace("'"," ")
+    password = content['password']
+    email = content['email'].replace("'"," ")
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
-    cursor.execute(f"SELECT * FROM User WHERE username = '{username}'")
+    cursor.execute(f"SELECT * FROM User WHERE username='{username}'")
     account_username = cursor.fetchone()
 
-    cursor.execute(f"SELECT * FROM User WHERE email = '{email}'")
+    cursor.execute(f"SELECT * FROM User WHERE email='{email}'")
     account_email = cursor.fetchone()
 
     if account_username and account_email:
@@ -30,8 +31,9 @@ def register():
     else:
         id = ''.join(random.choices(string.ascii_lowercase + string.digits, k = 22))
         # aggiunta di un utente
-        cursor.execute(f"INSERT INTO User (id, username, email, password) VALUES('{id}', '{username}', '{email}', '{password}'")
+        cursor.execute(f"INSERT INTO User (id, username, email, password) VALUES('{id}', '{username}', '{email}', '{password}')")
         # creazione playlist dailysuggestion
+        cursor.execute(f"INSERT INTO Playlist (id,creator,name,isDailySuggestion) VALUES ('{id[::-1]}','spotty#id#123456789123','DailySuggestion',1)")
         cursor.execute(f"INSERT INTO DailySuggestion (id,suggestedFor) VALUES('{id[::-1]}','{id}')")
         # popolazione di dailysuggestion
         cursor.execute(f'''
@@ -43,7 +45,7 @@ def register():
             ('2C6WXnmZ66tHhHlnvwePiK','{id[::-1]}',NOW()),
             ('2VdT56BGpdqNHUgOe1j5vc','{id[::-1]}',NOW()),
             ('3SZh4ay5IES2q3BDmoo0Ir','{id[::-1]}',NOW()),
-            ('3xyQawzvHeSMGowhomelrY','{id[::-1]}',NOW()),
+            ('3xyQawzvHeSMGowhomelrY','{id[::-1]}',NOW())
         ''')
         mysql.connection.commit()
         return jsonify(id = id)
@@ -51,8 +53,9 @@ def register():
 
 @auth_bp.route('/login/', methods=['POST'])
 def login():
-    email = request.form['email']
-    password = request.form['password']
+    content = request.json
+    email = content['email'].replace("'"," ")
+    password = content['password']
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute(f"SELECT id,username FROM User WHERE email = '{email}' and password = '{password}'")

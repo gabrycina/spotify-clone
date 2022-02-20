@@ -14,7 +14,7 @@ TRACK_DATA = (
 ARTIST_DATA = (
     "SELECT id, name, image "
     "FROM Artist " 
-    "name like '%{}%'"
+    "WHERE name like '%{}%'"
 )
 
 ALBUM_DATA = (
@@ -29,31 +29,33 @@ GET_TRACKS_FROM_ALBUM = (
     "SELECT Tb.position, T.title, T.audio, T.durationMs "
     "FROM Track T,  TrackBelongsToAlbum Tb, Album AL "
     "WHERE T.id=Tb.track and Tb.album=Al.id "
-    "and Al.title = '{}'"
+    "and Al.id = '{}'"
 )
 
 PLAYLIST_DATA = (
-    "SELECT title, id, creator "
+    "SELECT name, id, creator "
     "FROM Playlist "
-    "where title like '%{}%' "
+    "where name like '%{}%'"
 )
 
 GET_TRACKS_FROM_PLAYLIST = (
     "SELECT T.title, T.audio, T.durationMs "
     "FROM Track T,  TrackBelongsToPlaylist Tb, Playlist P "
     "WHERE T.id=Tb.track and Tb.playlist=P.id "
-    "and P.title = '{}' "
+    "and P.id = '{}' "
     "ORDER BY Tb.addedDate "
 )
 
 
 @search_bp.route('/', methods=['POST'])
 def search():
+    content = request.json
+    content = content['query'].replace("'"," ")
     res = {}
-    res['tracks'] = search_tracks(request.form['query'])
-    res['artists'] = search_artists(request.form['query'])
-    res['albums'] = search_albums(request.form['query'])
-    res['playlists'] = search_playlists(request.form['query'])
+    res['tracks'] = search_tracks(content)
+    res['artists'] = search_artists(content)
+    res['albums'] = search_albums(content)
+    res['playlists'] = search_playlists(content)
     return jsonify(res)
 
 
@@ -64,13 +66,14 @@ def search_tracks(query):
 
     tracks_list = []
     for track in tracks:
+        print(track)
         tracks_list.append(
             {
-                "songName": track['T.title'],
-                "songimg": track['Al.image'],
-                "songArtist": track['A.name'],
-                "link": track['T.audio'],
-                "trackTime": track['T.durationMs']
+                "songName": track['title'],
+                "songimg": track['image'],
+                "songArtist": track['name'],
+                "link": track['audio'],
+                "trackTime": track['durationMs']
             }
         )
 
@@ -103,30 +106,30 @@ def search_albums(query):
     albums_list = []
     for album in albums:
         temp = {
-            "title": album['AL.title'],
-            "link": album['Al.id'],
-            "imgUrl": album['Al.image'],
+            "title": album['title'],
+            "link": album['id'],
+            "imgUrl": album['image'],
             "hoverColor": "rgb(224, 112, 16)", 
-            "artist": album['A.name'],
+            "artist": album['name'],
             "playlistData": []
             }
 
-        cursor.execute(GET_TRACKS_FROM_ALBUM.format(album['AL.title']))
+        cursor.execute(GET_TRACKS_FROM_ALBUM.format(album['id']))
         tracks = cursor.fetchall()
 
         for track in tracks:
             temp['playlistData'].append(
                 {
-                    "index": track['Tb.position'],
-                    "songName": track['T.title'],
-                    "songimg": album['Al.image'],
-                    "songArtist": album['A.name'],
-                    "link": track['T.audio'],
-                    "trackTime": track['T.durationMs'],
+                    "index": track['position'],
+                    "songName": track['title'],
+                    "songimg": album['image'],
+                    "songArtist": album['name'],
+                    "link": track['audio'],
+                    "trackTime": track['durationMs'],
                 }
             )
 
-        album_list.append(temp)
+        albums_list.append(temp)
 
     return albums_list
 
@@ -139,7 +142,7 @@ def search_playlists(query):
     playlists_list = []
     for playlist in playlists:
         temp = {
-            "title": playlist['title'],
+            "title": playlist['name'],
             "link": playlist['id'],
             "imgUrl": "/", #manca
             "hoverColor": "rgb(224, 112, 16)", 
@@ -147,7 +150,7 @@ def search_playlists(query):
             "playlistData": []
             }
 
-        cursor.execute(GET_TRACKS_FROM_PLAYLIST.format(playlist['title']))
+        cursor.execute(GET_TRACKS_FROM_PLAYLIST.format(playlist['id']))
         tracks = cursor.fetchall()
 
         index = 1
@@ -155,11 +158,11 @@ def search_playlists(query):
             temp['playlistData'].append(
                 {
                     "index": str(index),
-                    "songName": track['T.title'],
+                    "songName": track['title'],
                     "songimg": "/", #manca
                     "songArtist":playlist['creator'],
-                    "link": track['T.audio'],
-                    "trackTime": track['T.durationMs'],
+                    "link": track['audio'],
+                    "trackTime": track['durationMs'],
                 }
             )
             index+=1
