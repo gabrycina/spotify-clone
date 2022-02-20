@@ -1,5 +1,5 @@
 from flask import Blueprint, Flask, request, jsonify
-from app import mysql
+from __init__ import mysql
 import MySQLdb.cursors
 import re
 import string
@@ -36,7 +36,7 @@ def register():
 
 @auth_bp.route('/login/', methods=['POST'])
 def login():
-    username = request.form['email']
+    email = request.form['email']
     password = request.form['password']
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
