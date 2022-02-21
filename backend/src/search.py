@@ -36,7 +36,7 @@ GET_TRACKS_FROM_ALBUM = (
 PLAYLIST_DATA = (
     "SELECT P.name, P.id, U.username as creator "
     "FROM Playlist P, User U "
-    "WHERE U.id=P.creator "
+    "WHERE U.id=P.creator and P.isDailySuggestion=0 "
     "and name like '%{}%'"
 )
 
