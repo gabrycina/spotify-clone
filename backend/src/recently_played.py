@@ -21,10 +21,11 @@ GET_TRACKS_FROM_ALBUM = (
 )
 
 GET_RECENTLY_PLAYED = (
-    "SELECT distinct Tb.album "
+    "SELECT Tb.album, max(L.date) as date "
     "FROM ListenedTo L, TrackBelongsToAlbum Tb "
     "WHERE L.track=Tb.track and L.user = '{}' "
-    "ORDER BY date desc "
+    "GROUP BY Tb.album "
+    "ORDER BY L.date "
     "limit 6"
 )
 
