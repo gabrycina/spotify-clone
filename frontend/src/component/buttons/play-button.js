@@ -12,7 +12,10 @@ function PlayButton(props) {
       className={styles.playBtn}
       tabIndex="0"
       role="button"
-      onClick={() => props.changePlay(!props.isPlaying)}
+      onClick={() => {
+        if (!props.isPlaying || props.isthisplay)
+          props.changePlay(!props.isPlaying);
+      }}
     >
       {props.isPlaying && props.isthisplay ? (
         <IconButton icon={<Icons.Pause />} activeicon={<Icons.Pause />} />

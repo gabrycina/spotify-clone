@@ -10,11 +10,14 @@ import styles from "./track-card.module.css";
 
 function TrackCard(props) {
   const [isthisplay, setIsthisPlay] = useState(false);
-
   const dispatch = useDispatch();
 
   const handleChangeTrack = (track) => {
-    dispatch(changeTrack(track));
+    var trackToPlay = {
+      index: "0",
+      ...track,
+    };
+    dispatch(changeTrack(trackToPlay));
   };
 
   useEffect(() => {
@@ -35,7 +38,7 @@ function TrackCard(props) {
         </div>
       </Link>
       <div
-        onClick={() => () => handleChangeTrack(props.data.playlistData[0])}
+        onClick={() => handleChangeTrack(props.data)}
         className={`${styles.IconBox} ${
           isthisplay && props.isPlaying ? styles.ActiveIconBox : ""
         }`}

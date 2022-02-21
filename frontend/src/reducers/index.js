@@ -6,7 +6,6 @@ import {
   LOGOUT,
   SEARCH,
 } from "../actions/index";
-import { bindActionCreators } from "redux";
 
 const INITIAL_STATE = {
   trackData: {
@@ -41,13 +40,15 @@ export const reducer = (state = INITIAL_STATE, action) => {
         isPlaying: action.payload,
       };
     case CHANGETRACK:
-      state.trackData.trackKey = action.payload.index;
-      state.trackData.track = action.payload.link;
-      state.trackData.trackName = action.payload.songName;
-      state.trackData.trackImg = action.payload.songimg;
-      state.trackData.trackArtist = action.payload.artist;
       return {
         ...state,
+        trackData: {
+          trackKey: action.payload.index,
+          track: action.payload.link,
+          trackName: action.payload.songName,
+          trackImg: action.payload.songimg,
+          trackArtist: action.payload.songArtist,
+        },
       };
     case LOGIN:
       state.user = action.payload;
@@ -66,3 +67,4 @@ export const reducer = (state = INITIAL_STATE, action) => {
 
 export const selectUser = (state) => state.user;
 export const selectKey = (state) => state.key;
+export const selectTrackData = (state) => state.trackData;
