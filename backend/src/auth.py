@@ -7,6 +7,12 @@ import random
 
 auth_bp = Blueprint('auth', __name__)
 
+ID_EXIST = (
+    "SELECT * "  
+    "FROM USER "
+    "WHERE id = '{}'"
+)
+
 
 @auth_bp.route('/register/', methods=['POST'])
 def register():
@@ -30,8 +36,11 @@ def register():
     elif account_email:
         return jsonify(error=f"'{email}' already exists !")
     else:
-        id = ''.join(random.choices(
-            string.ascii_lowercase + string.digits, k=22))
+        id = ''.join(random.choices(string.ascii_lowercase + string.digits, k=22))
+        cursor.execute(ID_EXIST.format(id))
+        while cursor.fetchone():
+            id = ''.join(random.choices(string.ascii_lowercase + string.digits, k=22))
+            cursor.execute(ID_EXIST.format(id))
         # aggiunta di un utente
         cursor.execute(
             f"INSERT INTO User (id, username, email, password) VALUES('{id}', '{username}', '{email}', '{password}')")

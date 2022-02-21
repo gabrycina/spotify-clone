@@ -1,6 +1,7 @@
 from flask import Blueprint, Flask, request, jsonify
 from __init__ import mysql
 import MySQLdb.cursors
+from hovercolor import getColor
 
 recently_played_bp = Blueprint('recently_played', __name__)
 
@@ -46,7 +47,7 @@ def recently_played():
             "title": album['title'],
             "link": album['id'],
             "imgUrl": album['image'],
-            "hoverColor": "rgb(224, 112, 16)", 
+            "hoverColor": getColor(album['image']), 
             "artist": album['name'],
             "playlistData": []
             }
