@@ -1,4 +1,3 @@
-from urllib import response
 import requests
 from PIL import Image
 from io import BytesIO
