@@ -9,6 +9,9 @@ flask-mysqldb = "*"
 flask-cors = "*"
 requests = "*"
 matplotlib = "*"
+pillow = "*"
+numpy = "*"
+scipy = "*"
 
 [dev-packages]
 
