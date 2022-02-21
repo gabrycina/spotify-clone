@@ -9,7 +9,7 @@ auth_bp = Blueprint('auth', __name__)
 
 ID_EXISTS = (
     "SELECT * "  
-    "FROM USER "
+    "FROM User "
     "WHERE id = '{}'"
 )
 
