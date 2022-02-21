@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from __init__ import mysql
 import MySQLdb.cursors
+from hovercolor import getColor
 
 library_bp = Blueprint('libary', __name__)
 
@@ -55,7 +56,7 @@ def get_all_album(user):
             "title":album['title'],
             "link":album['id'],
             "imgUrl":album['image'],
-            "hoverColor": "rgb(224, 112, 16)",
+            "hoverColor":getColor(album['image']),
             "artist":album['name'],
             "playlistData":[]
         }
@@ -105,7 +106,7 @@ def get_all_playlist(user):
             "title":playlist['name'],
             "link":playlist['id'],
             "imgUrl":"https://i.scdn.co/image/ab67616d0000b2734b37560bb0fb287011ae6a60",
-            "hoverColor": "rgb(224, 112, 16)",
+            "hoverColor":getColor("https://i.scdn.co/image/ab67616d0000b2734b37560bb0fb287011ae6a60"),
             "artist":playlist['username'],
             "playlistData":[]
         }
