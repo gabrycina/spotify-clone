@@ -37,10 +37,10 @@ def register():
         return jsonify(error=f"'{email}' already exists !")
     else:
         id = ''.join(random.choices(string.ascii_lowercase + string.digits, k=22))
-        cursor.execute(ID_EXIST.format(id))
+        cursor.execute(ID_EXISTS.format(id))
         while cursor.fetchone():
             id = ''.join(random.choices(string.ascii_lowercase + string.digits, k=22))
-            cursor.execute(ID_EXIST.format(id))
+            cursor.execute(ID_EXISTS.format(id))
         # aggiunta di un utente
         cursor.execute(
             f"INSERT INTO User (id, username, email, password) VALUES('{id}', '{username}', '{email}', '{password}')")
