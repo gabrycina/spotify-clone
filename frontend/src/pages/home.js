@@ -17,7 +17,6 @@ function Home() {
   //fetch last liked
   //fetch last listened
   const updateHome = async () => {
-    console.log(user.id);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -30,18 +29,17 @@ function Home() {
       requestOptions
     ).then((liked) => liked.json());
 
-    // const listened = await fetch(
-    //   "http://127.0.0.1:5000/lastlistened/",
-    //   requestOptions
-    // ).then((listened) => listened.json());
+    const listened = await fetch(
+      "http://127.0.0.1:5000/recently_played/",
+      requestOptions
+    ).then((listened) => listened.json());
 
     setlastliked(liked);
-    // setlastlistened(listened);
+    setlastlistened(listened);
   };
 
   useEffect(() => {
     updateHome();
-    console.log(lastliked);
   }, [user]);
 
   return (
@@ -77,12 +75,9 @@ function Home() {
           </div>
 
           <div className={styles.SectionCardsMedium}>
-            {
-              //TODO switch to API request
-              // PLAYLIST.slice(0, 6).map((item) => {
-              //   return <PlaylistCardM key={item.title} data={item} />;
-              // })
-            }
+            {lastlistened.map((item) => {
+              return <PlaylistCardS key={item.title} data={item} />;
+            })}
           </div>
         </section>
       </div>
