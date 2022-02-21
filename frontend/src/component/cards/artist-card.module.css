@@ -1,0 +1,36 @@
+.ArtistCardBox {
+  position: relative;
+  overflow: hidden;
+}
+.ArtistCard {
+  position: relative;
+  padding: 16px;
+  background: #181818;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+.ImgBox {
+  position: relative;
+}
+.ImgBox img {
+  height: 100%;
+  width: 100%;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 -4px 12px rgb(0 0 0 / 50%);
+  box-shadow: 0 10px 12px rgb(0 0 0 / 50%);
+}
+
+.Title {
+  margin-top: 16px;
+  min-height: 62px;
+}
+.Title p {
+  margin: 0px;
+  color: var(--text-white);
+}
+.Title p:last-child {
+  color: rgb(179, 179, 179);
+  margin-top: 4px;
+  -webkit-line-clamp: 2;
+}
