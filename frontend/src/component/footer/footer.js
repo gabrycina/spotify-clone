@@ -7,11 +7,13 @@ import MusicControlBox from "./player/music-control-box";
 import MusicProgressBar from "./player/music-progress-bar";
 import FooterRight from "./footer-right";
 import Audio from "./audio";
-
+import { useSelector } from "react-redux";
 import CONST from "../../constants/index";
 import styles from "./footer.module.css";
+import { selectTrackData } from "../../reducers/index";
 
 function Footer(props) {
+  var newTrackData = useSelector(selectTrackData);
   const size = useWindowSize();
 
   const [currentTime, setCurrentTime] = useState(0);
@@ -31,13 +33,13 @@ function Footer(props) {
     }
   }, [audioRef, props.isPlaying]);
 
-  /*useEffect(() => {
-        if (props.isPlaying) {
-          localStorage.setItem('playedSong', audioRef.current.currentSrc);
-        } else {
-          localStorage.setItem('playedSong', 'stop');
-        }
-    });*/
+  useEffect(() => {
+    if (props.isPlaying) {
+      localStorage.setItem("playedSong", audioRef.current.currentSrc);
+    } else {
+      localStorage.setItem("playedSong", "stop");
+    }
+  });
 
   useEffect(() => {
     audioRef.current.volume = volume;
@@ -58,7 +60,7 @@ function Footer(props) {
             ref={audioRef}
             handleDuration={setDuration}
             handleCurrentTime={setCurrentTime}
-            trackData={props.trackData}
+            trackData={newTrackData}
             isPlaying={props.isPlaying}
           />
         </div>
