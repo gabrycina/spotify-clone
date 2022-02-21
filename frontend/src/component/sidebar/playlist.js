@@ -1,14 +1,40 @@
 import { Link } from "react-router-dom";
 
 import styles from "./playlist.module.css";
-
+import { useState, useEffect } from "react";
 import TitleS from "../text/title-s";
 import TextRegularM from "../text/text-regular-m";
 import PlaylistButton from "./playlist-button";
 import { PLAYLISTBTN } from "../../constants";
 import { PLAYLIST } from "../../data";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../reducers/index";
+import playlist from "../../pages/playlist";
 
 function Playlist() {
+  const [playlists, setplaylists] = useState([]);
+  const user = useSelector(selectUser);
+
+  const updatePlaylists = async () => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: user.id, type: "playlist" }),
+      mode: "cors",
+    };
+
+    const fetchedPlaylists = await fetch(
+      "http://127.0.0.1:5000/library/get/",
+      requestOptions
+    ).then((fetchedPlaylists) => fetchedPlaylists.json());
+
+    setplaylists(fetchedPlaylists);
+  };
+
+  useEffect(() => {
+    updatePlaylists();
+  }, [user]);
+
   return (
     <div className={styles.Playlist}>
       <div>
@@ -28,16 +54,13 @@ function Playlist() {
       <hr className={styles.hr} />
 
       <div>
-        {/* 
-        todo: USE REQUESTED PLAYLIST HERE
-
-        {PLAYLIST.filter((item) => item.type === "playlist").map((list) => {
+        {playlists?.map((list) => {
           return (
             <Link to={`/playlist/${list.link}`} key={list.title}>
               <TextRegularM>{list.title}</TextRegularM>
             </Link>
           );
-        })} */}
+        })}
       </div>
     </div>
   );
