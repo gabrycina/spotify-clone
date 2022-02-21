@@ -13,7 +13,7 @@ function PlaylistCardM(props) {
   const [isthisplay, setIsthisPlay] = useState(false);
   const dispatch = useDispatch();
 
-  const handleChangeTrack = (track) => {
+  const handleChangeTrack = async (track) => {
     dispatch(changeTrack(track));
   };
 

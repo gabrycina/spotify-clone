@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import TitleM from "../component/text/title-m";
 import Topnav from "../component/topnav/topnav";
 import PlaylistCardM from "../component/cards/playlist-card-m";
-import { PLAYLIST } from "../data/index";
 import { selectUser } from "../reducers/index";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
