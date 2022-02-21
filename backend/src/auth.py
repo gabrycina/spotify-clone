@@ -7,7 +7,7 @@ import random
 
 auth_bp = Blueprint('auth', __name__)
 
-ID_EXIST = (
+ID_EXISTS = (
     "SELECT * "  
     "FROM USER "
     "WHERE id = '{}'"
