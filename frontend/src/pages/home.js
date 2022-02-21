@@ -13,6 +13,7 @@ function Home() {
   const user = useSelector(selectUser);
   const [lastliked, setlastliked] = useState({});
   const [lastlistened, setlastlistened] = useState([]);
+  const [isLoading, setisLoading] = useState(true);
 
   //fetch last liked
   //fetch last listened
@@ -36,13 +37,30 @@ function Home() {
 
     setlastliked(liked);
     setlastlistened(listened);
+    setisLoading(false);
   };
 
   useEffect(() => {
     updateHome();
   }, [user]);
 
-  return (
+  return isLoading ? (
+    <div className={styles.Home}>
+      <div className={styles.HoverBg}></div>
+      <div className={styles.Bg}></div>
+
+      <Topnav />
+      <div className={styles.Content}>
+        <div className="flex justify-center items-center mt-80">
+          <div className="loader p-5 rounded-full flex space-x-3">
+            <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
+            <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
+            <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ) : (
     <div className={styles.Home}>
       <div className={styles.HoverBg}></div>
       <div className={styles.Bg}></div>
@@ -53,20 +71,21 @@ function Home() {
           <div className={styles.SectionTitle}>
             <TitleL>Welcome</TitleL>
           </div>
-
-          <div className={styles.SectionCards}>
-            {lastliked.albums?.map((item) => {
-              return <PlaylistCardS key={item.title} data={item} />;
-            })}
-            {lastliked.daily ? (
-              <PlaylistCardS key="daily" data={lastliked.daily} />
-            ) : (
-              ""
-            )}
-            {lastliked.playlists?.map((item) => {
-              return <PlaylistCardS key={item.title} data={item} />;
-            })}
-          </div>
+          {
+            <div className={styles.SectionCards}>
+              {lastliked.albums?.map((item) => {
+                return <PlaylistCardS key={item.title} data={item} />;
+              })}
+              {lastliked.daily ? (
+                <PlaylistCardS key="daily" data={lastliked.daily} />
+              ) : (
+                ""
+              )}
+              {lastliked.playlists?.map((item) => {
+                return <PlaylistCardS key={item.title} data={item} />;
+              })}
+            </div>
+          }
         </section>
 
         <section>

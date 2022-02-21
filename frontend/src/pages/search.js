@@ -10,9 +10,11 @@ import React, { useState, useEffect } from "react";
 
 function Search() {
   const [results, setResults] = useState({});
+  const [isLoading, setisLoading] = useState(false);
   var key = useSelector(selectKey);
 
   const searchKey = async () => {
+    setisLoading(true);
     if (key === "") return;
 
     const requestOptions = {
@@ -28,13 +30,26 @@ function Search() {
     ).then((res) => res.json());
 
     setResults(res);
+    setisLoading(false);
   };
 
   useEffect(() => {
-    searchKey(key);
+    if (key != "") searchKey(key);
   }, [key]);
 
-  return (
+  return isLoading ? (
+    <div className={styles.SearchPage}>
+      <Topnav search={true} />
+
+      <div className="flex justify-center items-center mt-80">
+        <div className="loader p-5 rounded-full flex space-x-3">
+          <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
+          <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
+          <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
+        </div>
+      </div>
+    </div>
+  ) : (
     <div className={styles.SearchPage}>
       <Topnav search={true} />
 
