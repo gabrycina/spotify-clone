@@ -6,7 +6,7 @@ from hovercolor import getColor
 search_bp = Blueprint('search', __name__)
 
 TRACK_DATA = (
-    "SELECT T.title, Al.image, A.name, T.audio, T.durationMs "
+    "SELECT T.id, T.title, Al.image, A.name, T.audio, T.durationMs "
     "FROM Track T , Album Al, Artist A , TrackBelongsToAlbum Tb , Making M " 
     "WHERE T.id=Tb.track and Tb.album=Al.id and Al.id=M.album and M.artist=A.id "
     "and T.title like '%{}%'"
@@ -27,7 +27,7 @@ ALBUM_DATA = (
 )
 
 GET_TRACKS_FROM_ALBUM = (
-    "SELECT Tb.position, T.title, T.audio, T.durationMs "
+    "SELECT Tb.position, T.id, T.title, T.audio, T.durationMs "
     "FROM Track T,  TrackBelongsToAlbum Tb, Album AL "
     "WHERE T.id=Tb.track and Tb.album=Al.id "
     "and Al.id = '{}'"
@@ -41,7 +41,7 @@ PLAYLIST_DATA = (
 )
 
 GET_TRACKS_FROM_PLAYLIST = (
-    "SELECT T.title, T.audio, T.durationMs, A.image "
+    "SELECT T.id, T.title, T.audio, T.durationMs, A.image "
     "FROM Track T,  TrackBelongsToPlaylist Tb, Playlist P, Album A, TrackBelongsToAlbum Ta "
     "WHERE T.id=Tb.track and Tb.playlist=P.id and T.id=Ta.track and Ta.album=A.id "
     "and P.id = '{}' "
@@ -70,6 +70,7 @@ def search_tracks(query):
     for track in tracks:
         tracks_list.append(
             {
+                "id":track['id'],
                 "songName": track['title'],
                 "songimg": track['image'],
                 "songArtist": track['name'],
@@ -121,6 +122,7 @@ def search_albums(query):
         for track in tracks:
             temp['playlistData'].append(
                 {
+                    "id":track['id'],
                     "index": track['position'],
                     "songName": track['title'],
                     "songimg": album['image'],
@@ -158,6 +160,7 @@ def search_playlists(query):
         for track in tracks:
             temp['playlistData'].append(
                 {
+                    "id":track['id'],
                     "index": str(index),
                     "songName": track['title'],
                     "songimg": track['image'],

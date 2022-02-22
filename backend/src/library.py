@@ -62,7 +62,7 @@ def get_all_album(user):
         }
 
         cursor.execute(f'''
-            select T.title, T.audio, T.durationMs
+            select T.id, T.title, T.audio, T.durationMs
             from TrackBelongsToAlbum B, Track T
             where B.album='{album['id']}' and T.id=B.track
         ''')
@@ -73,6 +73,7 @@ def get_all_album(user):
             temp['playlistData'].append(
                 {
                     "index":str(index),
+                    "id":track['id'],
                     "songName":track['title'],
                     "songimg":album['image'],
                     "songArtist":album['name'],
@@ -131,6 +132,7 @@ def get_all_playlist(user):
             temp['playlistData'].append(
                 {
                     "index":str(index),
+                    "id":track['id'],
                     "songName":track['title'],
                     "songimg":data['image'],
                     "songArtist":data['name'],

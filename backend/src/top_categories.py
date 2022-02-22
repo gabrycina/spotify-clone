@@ -14,7 +14,7 @@ TOP_10 = (
 )
 
 TRACK_DATA = (
-    "SELECT T.title, Al.image, A.name, T.audio, T.durationMs "
+    "SELECT T.id, T.title, Al.image, A.name, T.audio, T.durationMs "
     "FROM Track T , Album Al, Artist A , TrackBelongsToAlbum Tb , Making M " 
     "WHERE T.id=Tb.track and Tb.album=Al.id and Al.id=M.album and M.artist=A.id "
     "and T.id = '{}'"
@@ -44,9 +44,12 @@ def top_categories():
             tracks.append(cursor.fetchone())
 
         tracks_list = []
+        index = 0
         for track in tracks:
             tracks_list.append(
                 {
+                    "index":str(index),
+                    "id":track['id'],
                     "songName": track['title'],
                     "songimg": track['image'],
                     "songArtist": track['name'],
@@ -54,6 +57,7 @@ def top_categories():
                     "trackTime": track['durationMs']
                 }
             )
+            index += 1
         return jsonify(tracks_list)
     else:
         cursor.execute(TOP_10.format(content['category_id']))
@@ -65,9 +69,12 @@ def top_categories():
             tracks.append(cursor.fetchone())
 
         tracks_list = []
+        index = 0
         for track in tracks:
             tracks_list.append(
                 {
+                    "index":str(index),
+                    "id":track['id'],
                     "songName": track['title'],
                     "songimg": track['image'],
                     "songArtist": track['name'],
@@ -75,4 +82,5 @@ def top_categories():
                     "trackTime": track['durationMs']
                 }
             )
+            index += 1
         return jsonify(tracks_list)

@@ -16,7 +16,7 @@ ALBUM_DATA = (
 )
 
 GET_TRACKS_FROM_ALBUM = (
-    "SELECT Tb.position, T.title, T.audio, T.durationMs "
+    "SELECT Tb.position, T.id, T.title, T.audio, T.durationMs "
     "FROM Track T,  TrackBelongsToAlbum Tb, Album AL "
     "WHERE T.id=Tb.track and Tb.album=Al.id "
     "and Al.id = '{}'"
@@ -32,7 +32,7 @@ PLAYLIST_DATA = (
 )
 
 GET_TRACKS_FROM_PLAYLIST = (
-    "SELECT T.title, T.audio, T.durationMs, A.image "
+    "SELECT T.id, T.title, T.audio, T.durationMs, A.image "
     "FROM Track T,  TrackBelongsToPlaylist Tb, Playlist P, TrackBelongsToAlbum Ta, Album A "
     "WHERE T.id=Tb.track and Tb.playlist=P.id and T.id=Ta.track and Ta.album=A.id "
     "and P.id = '{}' "
@@ -83,6 +83,7 @@ def search_albums(id):
         for track in tracks:
             temp['playlistData'].append(
                 {
+                    "id":track['id'],
                     "index": track['position'],
                     "songName": track['title'],
                     "songimg": album['image'],
@@ -120,6 +121,7 @@ def search_playlists(id):
         for track in tracks:
             temp['playlistData'].append(
                 {
+                    "id":track['id'],
                     "index": str(index),
                     "songName": track['title'],
                     "songimg": track['image'],
@@ -159,6 +161,7 @@ def daily(id):
     for track in tracks:
         temp['playlistData'].append(
             {
+                "id":track['id'],
                 "index": str(index),
                 "songName": track['title'],
                 "songimg": "https://i.scdn.co/image/ab67616d0000b2734b37560bb0fb287011ae6a60",

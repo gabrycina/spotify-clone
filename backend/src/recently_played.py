@@ -14,7 +14,7 @@ ALBUM_DATA = (
 )
 
 GET_TRACKS_FROM_ALBUM = (
-    "SELECT Tb.position, T.title, T.audio, T.durationMs "
+    "SELECT Tb.position, T.id, T.title, T.audio, T.durationMs "
     "FROM Track T,  TrackBelongsToAlbum Tb, Album AL "
     "WHERE T.id=Tb.track and Tb.album=Al.id "
     "and Al.id = '{}'"
@@ -59,6 +59,7 @@ def recently_played():
         for track in tracks:
             temp['playlistData'].append(
                 {
+                    "id":track['id'],
                     "index": track['position'],
                     "songName": track['title'],
                     "songimg": album['image'],
