@@ -4,8 +4,6 @@ import { changePlay } from "../../actions";
 import TextBoldL from "../text/text-bold-l";
 import TextRegularM from "../text/text-regular-m";
 import Playgif from "../../image/now-play.gif";
-import * as Icons from "../icons";
-import convertTime from "../../functions/convertTime";
 
 import styles from "./playlist-track.module.css";
 
