@@ -5,19 +5,31 @@ import { Link } from "react-router-dom";
 import TextBoldL from "../text/text-bold-l";
 import TextRegularM from "../text/text-regular-m";
 import PlayButton from "../buttons/play-button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./track-card.module.css";
+import { selectUser } from "../../reducers/index";
 
 function TrackCard(props) {
   const [isthisplay, setIsthisPlay] = useState(false);
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
 
-  const handleChangeTrack = (track) => {
+  const handleChangeTrack = async (track) => {
     var trackToPlay = {
       index: "0",
       ...track,
     };
     dispatch(changeTrack(trackToPlay));
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user: user.id, id: track.id }),
+      mode: "cors",
+    };
+
+    console.log("awiondaw");
+    await fetch("http://127.0.0.1:5000/listen/track/", requestOptions);
   };
 
   useEffect(() => {

@@ -1,4 +1,3 @@
-import { PLAYLIST } from "../data/index";
 import {
   PLAYPAUSE,
   CHANGETRACK,
@@ -9,6 +8,7 @@ import {
 
 const INITIAL_STATE = {
   trackData: {
+    id: "02KiSb9pYNhbT0zzm1RASE",
     trackKey: [0, 0],
     track:
       "https://p.scdn.co/mp3-preview/410d0231ba6094d229d0c32675d3257e6946e608?cid=774b29d4f13844c495f206cafdad9c86",
@@ -43,6 +43,7 @@ export const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         trackData: {
+          id: action.payload.id,
           trackKey: action.payload.index,
           track: action.payload.link,
           trackName: action.payload.songName,

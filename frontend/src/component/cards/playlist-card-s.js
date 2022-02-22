@@ -4,16 +4,28 @@ import { changeTrack } from "../../actions";
 import { Link } from "react-router-dom";
 import TextBoldL from "../text/text-bold-l";
 import PlayButton from "../buttons/play-button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser } from "../../reducers/index";
 
 import styles from "./playlist-card-s.module.css";
 
 function PlaylistCardS(props) {
   const [isthisplay, setIsthisPlay] = useState(false);
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
 
-  const handleChangeTrack = (track) => {
+  const handleChangeTrack = async (track) => {
     dispatch(changeTrack(track));
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user: user.id, id: track.id }),
+      mode: "cors",
+    };
+
+    console.log("awiondaw");
+    await fetch("http://127.0.0.1:5000/listen/track/", requestOptions);
   };
 
   function changeTheme() {
