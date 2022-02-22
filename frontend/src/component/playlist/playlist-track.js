@@ -5,6 +5,7 @@ import TextBoldL from "../text/text-bold-l";
 import TextRegularM from "../text/text-regular-m";
 import Playgif from "../../image/now-play.gif";
 import * as Icons from "../icons";
+import convertTime from "../../functions/convertTime";
 
 import styles from "./playlist-track.module.css";
 
@@ -14,6 +15,16 @@ function PlaylistTrack(props) {
   setInterval(function () {
     setthisSong(props.data.song.link == localStorage.getItem("playedSong"));
   }, 50);
+
+  function msToTime(s) {
+    var ms = s % 1000;
+    s = (s - ms) / 1000;
+    var secs = s % 60;
+    s = (s - secs) / 60;
+    var mins = s % 60;
+
+    return mins + ":" + secs + "." + ms;
+  }
 
   useEffect(() => {
     if (
@@ -26,6 +37,8 @@ function PlaylistTrack(props) {
     }
   });
 
+  console.log(props.data.song.trackTime);
+
   return (
     <div
       className={`${styles.trackDiv} ${thisSong ? "activeTrack" : ""}`}
@@ -35,13 +48,6 @@ function PlaylistTrack(props) {
           : {}
       }
     >
-      <button
-        className={styles.playBtn}
-        onClick={() => props.changePlay(!props.isPlaying)}
-      >
-        {thisSong ? <Icons.Pause /> : <Icons.Play />}
-      </button>
-
       {thisSong ? (
         <img className={styles.gif} src={Playgif} />
       ) : (
@@ -59,7 +65,7 @@ function PlaylistTrack(props) {
         <TextRegularM>{props.data.song.songArtist}</TextRegularM>
       </span>
 
-      <p>{props.data.song.trackTime}</p>
+      <p>{msToTime(props.data.song.trackTime)}</p>
     </div>
   );
 }

@@ -7,13 +7,15 @@ import TextRegularM from "../text/text-regular-m";
 import PlaylistButton from "./playlist-button";
 import { PLAYLISTBTN } from "../../constants";
 import { PLAYLIST } from "../../data";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../reducers/index";
 import playlist from "../../pages/playlist";
+import { setSidebarPlaylists } from "../../actions/index";
 
 function Playlist() {
   const [playlists, setplaylists] = useState([]);
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   const updatePlaylists = async () => {
     const requestOptions = {
@@ -29,6 +31,7 @@ function Playlist() {
     ).then((fetchedPlaylists) => fetchedPlaylists.json());
 
     setplaylists(fetchedPlaylists);
+    dispatch(setSidebarPlaylists(fetchedPlaylists));
   };
 
   useEffect(() => {

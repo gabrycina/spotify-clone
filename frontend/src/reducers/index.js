@@ -5,6 +5,7 @@ import {
   LOGOUT,
   SEARCH,
   NEWPDISPLAYED,
+  SETSIDEBARPLAYLISTS,
 } from "../actions/index";
 
 const INITIAL_STATE = {
@@ -27,6 +28,7 @@ const INITIAL_STATE = {
   isPlaying: false,
   key: "",
   pDisplayed: [],
+  sidebarPlaylists: [],
 };
 
 export const reducer = (state = INITIAL_STATE, action) => {
@@ -67,6 +69,11 @@ export const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         pDisplayed: action.payload,
+      };
+    case SETSIDEBARPLAYLISTS:
+      return {
+        ...state,
+        sidebarPlaylists: action.payload,
       };
     default:
       return state;
