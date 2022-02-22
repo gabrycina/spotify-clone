@@ -56,10 +56,10 @@ function PlaylistTab() {
   return isLoading ? (
     <div className={styles.Content}>
       <div className="flex justify-center items-center mt-80">
-        <div className="loader p-5 rounded-full flex space-x-3">
-          <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
-          <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
-          <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
+        <div className="loader p-10 rounded-full flex space-x-5 animate-bounce">
+          <div className="w-4 h-4 bg-white rounded-full"></div>
+          <div className="w-4 h-4 bg-white rounded-full"></div>
+          <div className="w-4 h-4 bg-white rounded-full"></div>
         </div>
       </div>
     </div>
