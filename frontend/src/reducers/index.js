@@ -4,6 +4,7 @@ import {
   LOGIN,
   LOGOUT,
   SEARCH,
+  NEWPDISPLAYED,
 } from "../actions/index";
 
 const INITIAL_STATE = {
@@ -25,6 +26,7 @@ const INITIAL_STATE = {
   },
   isPlaying: false,
   key: "",
+  pDisplayed: [],
 };
 
 export const reducer = (state = INITIAL_STATE, action) => {
@@ -60,6 +62,11 @@ export const reducer = (state = INITIAL_STATE, action) => {
       state.user = null;
       return {
         ...state,
+      };
+    case NEWPDISPLAYED:
+      return {
+        ...state,
+        pDisplayed: action.payload,
       };
     default:
       return state;

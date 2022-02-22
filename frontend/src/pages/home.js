@@ -5,12 +5,13 @@ import React, { useState, useEffect } from "react";
 import PlaylistCardS from "../component/cards/playlist-card-s";
 import PlaylistCardM from "../component/cards/playlist-card-m";
 import { selectUser } from "../reducers/index";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { changePDisplayed } from "../actions/index";
 import styles from "./home.module.css";
 
 function Home() {
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
   const [lastliked, setlastliked] = useState({});
   const [lastlistened, setlastlistened] = useState([]);
   const [isLoading, setisLoading] = useState(true);
@@ -38,6 +39,12 @@ function Home() {
     setlastliked(liked);
     setlastlistened(listened);
     setisLoading(false);
+
+    const newPDisplayed = liked.albums
+      .concat(liked.playlists)
+      .concat(liked.daily)
+      .concat(listened);
+    dispatch(changePDisplayed(newPDisplayed));
   };
 
   useEffect(() => {

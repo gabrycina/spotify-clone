@@ -3,10 +3,11 @@ import TitleM from "../component/text/title-m";
 import Topnav from "../component/topnav/topnav";
 import PlaylistCardM from "../component/cards/playlist-card-m";
 import { selectUser } from "../reducers/index";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import styles from "./library.module.css";
 import ArtistCard from "../component/cards/artist-card";
+import { changePDisplayed } from "../actions/index";
 
 function Library() {
   return (
@@ -31,6 +32,7 @@ function PlaylistTab() {
   const [playlists, setplaylists] = useState([]);
   const user = useSelector(selectUser);
   const [isLoading, setisLoading] = useState(true);
+  const dispatch = useDispatch();
 
   const updatePlaylists = async () => {
     const requestOptions = {
@@ -47,6 +49,9 @@ function PlaylistTab() {
 
     setplaylists(fetchedPlaylists);
     setisLoading(false);
+
+    const newPDisplayed = fetchedPlaylists;
+    dispatch(changePDisplayed(newPDisplayed));
   };
 
   useEffect(() => {
@@ -103,10 +108,10 @@ function ArtistTab() {
   return isLoading ? (
     <div className={styles.Content}>
       <div className="flex justify-center items-center mt-80">
-        <div className="loader p-5 rounded-full flex space-x-3">
-          <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
-          <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
-          <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
+        <div className="loader p-10 rounded-full flex space-x-5 animate-bounce">
+          <div className="w-4 h-4 bg-white rounded-full"></div>
+          <div className="w-4 h-4 bg-white rounded-full"></div>
+          <div className="w-4 h-4 bg-white rounded-full"></div>
         </div>
       </div>
     </div>
@@ -126,6 +131,7 @@ function AlbumTab() {
   const [albums, setAlbums] = useState([]);
   const user = useSelector(selectUser);
   const [isLoading, setisLoading] = useState(true);
+  const dispatch = useDispatch();
 
   const updateAlbums = async () => {
     const requestOptions = {
@@ -142,6 +148,9 @@ function AlbumTab() {
 
     setAlbums(fetchedAlbums);
     setisLoading(false);
+
+    const newPDisplayed = fetchedAlbums;
+    dispatch(changePDisplayed(newPDisplayed));
   };
 
   useEffect(() => {
@@ -151,10 +160,10 @@ function AlbumTab() {
   return isLoading ? (
     <div className={styles.Content}>
       <div className="flex justify-center items-center mt-80">
-        <div className="loader p-5 rounded-full flex space-x-3">
-          <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
-          <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
-          <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
+        <div className="loader p-10 rounded-full flex space-x-5 animate-bounce">
+          <div className="w-4 h-4 bg-white rounded-full"></div>
+          <div className="w-4 h-4 bg-white rounded-full"></div>
+          <div className="w-4 h-4 bg-white rounded-full"></div>
         </div>
       </div>
     </div>

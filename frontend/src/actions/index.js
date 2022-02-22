@@ -3,6 +3,7 @@ export const CHANGETRACK = "CHANGETRACK";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 export const SEARCH = "SEARCH";
+export const NEWPDISPLAYED = "NEWPDISPLAYED";
 
 export const changePlay = (isPlaying) => {
   return { type: PLAYPAUSE, payload: isPlaying };
@@ -10,6 +11,10 @@ export const changePlay = (isPlaying) => {
 
 export const changeTrack = (track) => {
   return { type: CHANGETRACK, payload: track };
+};
+
+export const changePDisplayed = (newPDisplayed) => {
+  return { type: NEWPDISPLAYED, payload: newPDisplayed };
 };
 
 export const login = (user) => {

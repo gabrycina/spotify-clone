@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { changeTrack } from "../../actions";
-import { Link } from "react-router-dom";
 import TextBoldL from "../text/text-bold-l";
 import TextRegularM from "../text/text-regular-m";
 import PlayButton from "../buttons/play-button";
@@ -38,17 +37,15 @@ function TrackCard(props) {
 
   return (
     <div className={styles.TrackCardBox}>
-      <Link to={`/playlist/${props.data.link}`}>
-        <div className={styles.TrackCard}>
-          <div className={styles.ImgBox}>
-            <img src={props.data.songimg} alt={props.data.title} />
-          </div>
-          <div className={styles.Title}>
-            <TextBoldL>{props.data.songName}</TextBoldL>
-            <TextRegularM>{props.data.songArtist}</TextRegularM>
-          </div>
+      <div className={styles.TrackCard}>
+        <div className={styles.ImgBox}>
+          <img src={props.data.songimg} alt={props.data.title} />
         </div>
-      </Link>
+        <div className={styles.Title}>
+          <TextBoldL>{props.data.songName}</TextBoldL>
+          <TextRegularM>{props.data.songArtist}</TextRegularM>
+        </div>
+      </div>
       <div
         onClick={() => handleChangeTrack(props.data)}
         className={`${styles.IconBox} ${

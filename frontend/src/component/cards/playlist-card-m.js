@@ -25,7 +25,6 @@ function PlaylistCardM(props) {
       mode: "cors",
     };
 
-    console.log("awiondaw");
     await fetch("http://127.0.0.1:5000/listen/track/", requestOptions);
   };
 

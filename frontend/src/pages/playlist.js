@@ -8,7 +8,6 @@ import IconButton from "../component/buttons/icon-button";
 import PlaylistDetails from "../component/playlist/playlist-details";
 import PlaylistTrack from "../component/playlist/playlist-track";
 import * as Icons from "../component/icons";
-import { PLAYLIST } from "../data/index";
 
 import styles from "./playlist.module.css";
 import { useEffect, useState } from "react";
@@ -39,14 +38,14 @@ function PlaylistPage(props) {
         //receive json list of songs + playlist details
         //show it with playlistDetails component
 
-        PLAYLIST.map((item) => {
+        props.pDisplayed.map((item) => {
           if (item.link == path) {
             return (
               <div
                 key={item.title}
                 onLoad={() => {
                   changeBg(item.hoverColor);
-                  setPlaylistIndex(PLAYLIST.indexOf(item));
+                  setPlaylistIndex(props.pDisplayed.indexOf(item));
                 }}
               >
                 <PlaylistDetails data={item} />
@@ -54,7 +53,7 @@ function PlaylistPage(props) {
                 <div className={styles.PlaylistIcons}>
                   <button
                     onClick={() =>
-                      props.changeTrack([PLAYLIST.indexOf(item), 0])
+                      props.changeTrack([props.pDisplayed.indexOf(item), 0])
                     }
                   >
                     <PlayButton isthisplay={isthisplay} />
@@ -79,7 +78,7 @@ function PlaylistPage(props) {
                         key={song.index}
                         onClick={() =>
                           props.changeTrack([
-                            PLAYLIST.indexOf(item),
+                            props.pDisplayed.indexOf(item),
                             item.playlistData.indexOf(song),
                           ])
                         }
@@ -107,6 +106,7 @@ function PlaylistPage(props) {
 const mapStateToProps = (state) => {
   return {
     trackData: state.trackData,
+    pDisplayed: state.pDisplayed,
   };
 };
 

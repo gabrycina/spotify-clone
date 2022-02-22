@@ -3,14 +3,16 @@ import TitleM from "../component/text/title-m";
 import SearchPageCard from "../component/cards/searchpage-card";
 import { SEARCHCARDS } from "../data/index";
 import { selectKey } from "../reducers/index";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./search.module.css";
 import Results from "../component/results/results";
+import { changePDisplayed } from "../actions/index";
 import React, { useState, useEffect } from "react";
 
 function Search() {
   const [results, setResults] = useState({});
   const [isLoading, setisLoading] = useState(false);
+  const dispatch = useDispatch();
   var key = useSelector(selectKey);
 
   const searchKey = async () => {
@@ -31,6 +33,14 @@ function Search() {
 
     setResults(res);
     setisLoading(false);
+
+    var newPDisplayed = [];
+    if (res.albums?.length != 0) newPDisplayed = res.albums;
+
+    if (res.playlists?.length != 0)
+      newPDisplayed = newPDisplayed.concat(res.playlists);
+
+    dispatch(changePDisplayed(newPDisplayed));
   };
 
   useEffect(() => {
