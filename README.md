@@ -9,19 +9,19 @@
 ---
 We designed and realized the relational clone of the Spotify database for an university project. 
 
-![img](./readme_examples/demo.gif)å
+![img](./readme_examples/demo.gif)
 
 
 But what is a database **without a way to use it?**
 
 That's why we decided to implement a ReactJs frontend and a Flask backend in **less than 24 hours.**
 
-A small challenge to increase the productivity ;)
+A small challenge to increase the productivity 😉
 
 ![img](./readme_examples/demo2.gif)
 
 
-##How to install
+## How to install
 
 1. Execute every[^1] SQL file in order `./db`
 2. Change database configs in `backend/src/__init__.py`
