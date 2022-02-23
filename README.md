@@ -1,5 +1,5 @@
 # Spotify Clone <img src="https://cdn.iconscout.com/icon/free/png-256/spotify-11-432546.png" height="30em"> 
-######A fully functional Spotify Clone.
+###### A fully functional Spotify Clone.
 
 ![Version](https://img.shields.io/badge/Version-0.1.0-brightgreen)
 ![Language](https://img.shields.io/badge/Language-python-blue)
