@@ -165,3 +165,26 @@ FROM WeeklyLeaderboard JOIN WeeklyLikes ON WeeklyLikes.ID=WeeklyLeaderboard.ID;
 SELECT WeeklyLikes.ID,WeeklyLikes.NAME, 
 ROUND (((WeeklyLeaderboard.TotalListen/(SELECT reproduction FROM Revenue))*(SELECT paid FROM Revenue)), 2) Revenue
 FROM WeeklyLeaderboard JOIN WeeklyLikes ON WeeklyLikes.ID=WeeklyLeaderboard.ID;
+
+use spotty;
+show tables;
+SELECT * from Playlist where name = "hip hop2";
+SELECT * from Playlist, TrackBelongsToPlaylist where name = "hip hop2" AND playlist = "2Fk174hLD7WUFNrC5Ct54n";
+
+alter table Track modify audio varchar(300);
+SELECT * from Track where title = 'Courageous';
+INSERT INTO User(id,username,email,password,dob) VALUES('QKedDkxLZFOPQS8pAOkj01','Gabrycina','c.gabriele.info@gmail.com','d95e0c1f964d9fface444659b9db226f0dc45e9d3d5fb1b201b5f211cbaac25b','2001-09-1');
+
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+
+SELECT distinct Tb.album 
+FROM ListenedTo L, TrackBelongsToAlbum Tb 
+WHERE L.track=Tb.track and L.user = '9fPfGMn2IJJZG1Sy0J1t03' 
+ORDER BY date desc 
+limit 6;
+
+SELECT * FROM ListenedTo where user = '9fPfGMn2IJJZG1Sy0J1t03';
+
+
+SELECT * FROM Playlist;
