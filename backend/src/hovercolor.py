@@ -6,11 +6,13 @@ import numpy as np
 import scipy
 import scipy.misc
 import scipy.cluster
+from fucntools import lru_cache
 
 
 NUM_CLUSTERS = 5
 
-def getColor(link):
+@lru_cache(None)
+def getColor(link: str) -> str:
     response = requests.get(link)
     image = Image.open(BytesIO(response.content))
     image = image.resize((100, 100))   
