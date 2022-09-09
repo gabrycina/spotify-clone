@@ -18,9 +18,6 @@ That's why we decided to implement a ReactJs frontend and a Flask backend in **l
 
 A small challenge to increase the productivity 😉
 
-![img](./readme_examples/demo2.gif)
-
-
 ## How to install
 
 1. Execute every[^1] SQL file in order `./db`
